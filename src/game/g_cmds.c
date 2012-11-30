@@ -1341,16 +1341,40 @@ ClientCommand(edict_t *ent)
 void
 Cmd_Ex_Eval_f(edict_t *ent) {
 	char* name;
-   char* tmp;
+   char* tmpStr;
+   long tmpLong;
+   double tmpDouble;
+   int type;
    DATA_OBJECT obj;
    name = gi.args();
    if(Eval(name, &obj) == 0) {
       gi.dprintf("ERROR! Evaluating %s failed\n", name);
       return;
    } else {
-      tmp = DOToString(obj); 
-      if(Q_stricmp(tmp, "FALSE") != 0) {
-         gi.dprintf("%s\n", tmp);
+      type = GetType(obj);
+      if(type == INTEGER) {
+        tmpLong = DOToLong(obj);
+        gi.dprintf("%d\n", tmpLong);
+        return;
+      } else if(type == FLOAT) {
+        tmpDouble = DOToDouble(obj);
+        gi.dprintf("%f\n", tmpDouble);
+        return;
+      } else if(type == MULTIFIELD) {
+         gi.dprintf("multifield\n");
+         return;
+      } else if(type == INSTANCE_ADDRESS) {
+         gi.dprintf("instance-address\n");
+         return;
+      } else if(type == EXTERNAL_ADDRESS) {
+         gi.dprintf("external-address\n");
+         return;
+      } else {
+         //STRING, SYMBOL, or INSTANCE_NAME
+         tmpStr = DOToString(obj); 
+         if(Q_stricmp(tmpStr, "FALSE") != 0) {
+            gi.dprintf("%s\n", tmpStr);
+         }
       }
    }
 }

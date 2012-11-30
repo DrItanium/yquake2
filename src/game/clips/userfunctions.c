@@ -43,6 +43,7 @@
 
 #include "clips.h"
 #include "binary_operations.h"
+#include "quake2_interact.h"
 
 void UserFunctions(void);
 void EnvUserFunctions(void *);
@@ -79,5 +80,6 @@ void EnvUserFunctions(
 #pragma unused(theEnv)
 #endif
 	  BinaryOperationsFunctionDefinitions(theEnv);
+     QuakeInteractionDefinitons(theEnv);
   }
 

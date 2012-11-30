@@ -22,6 +22,11 @@
 #include "quake2_interact.h" 
 #include "../header/local.h"
 
+game_locals_t game;
+level_locals_t level;
+game_import_t gi;
+game_export_t globals;
+spawn_temp_t st;
 static int FindQuake(void *,char *);
 static int ExitQuake(void *,int);
 static int PrintQuake(void *,char *,char *);

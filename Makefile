@@ -683,10 +683,10 @@ GAME_OBJS_ = \
 	src/game/clips/tmpltrhs.o \
 	src/game/clips/tmpltutl.o \
 	src/game/clips/userdata.o \
-	src/game/clips/quake2_interact.o \
 	src/game/clips/userfunctions.o \
 	src/game/clips/utility.o \
 	src/game/clips/watch.o \
+	src/game/clips/quake2_interact.o \
 	src/game/clips/binary_operations.o
 
 # ----------

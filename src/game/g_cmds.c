@@ -26,6 +26,7 @@
 
 #include "header/local.h"
 #include "monster/misc/player.h"
+#include "clips/clips.h"
 
 char *
 ClientTeam(edict_t *ent)
@@ -1179,6 +1180,7 @@ Cmd_PlayerList_f(edict_t *ent)
 	gi.cprintf(ent, PRINT_HIGH, "%s", text);
 }
 
+void Cmd_Ex_Eval_f(edict_t *ent);
 void
 ClientCommand(edict_t *ent)
 {
@@ -1318,9 +1320,23 @@ ClientCommand(edict_t *ent)
 	else if (Q_stricmp(cmd, "playerlist") == 0)
 	{
 		Cmd_PlayerList_f(ent);
-	}
+	} else if(Q_stricmp(cmd, "ex_eval") == 0) {
+      Cmd_Ex_Eval_f(ent);   
+   }
 	else /* anything that doesn't match a command will be a chat */
 	{
 		Cmd_Say_f(ent, false, true);
 	}
+}
+
+void
+Cmd_Ex_Eval_f(edict_t *ent) {
+	char *name;
+   DATA_OBJECT obj;
+   name = gi.args();
+   gi.dprintf("Evaluating %s\n", name);
+   if(Eval(name, &obj) == 0) {
+      gi.dprintf("ERROR! EVAL didn't work!\n");
+   }
+
 }

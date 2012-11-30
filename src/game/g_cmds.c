@@ -1340,6 +1340,7 @@ ClientCommand(edict_t *ent)
 
 void
 Cmd_Ex_Eval_f(edict_t *ent) {
+   int i, max;
 	char* name;
    char* tmpStr;
    long tmpLong;
@@ -1347,6 +1348,13 @@ Cmd_Ex_Eval_f(edict_t *ent) {
    int type;
    DATA_OBJECT obj;
    name = gi.args();
+   //we need to strip out the quotation marks
+   max = strlen(name);
+   for(i = 0; i < max; i++) {
+      if((i == 0 || i == (max - 1)) && name[i] == '\"') {
+         name[i] = ' ';
+      } 
+   }
    if(Eval(name, &obj) == 0) {
       gi.dprintf("ERROR! Evaluating %s failed\n", name);
       return;
@@ -1380,8 +1388,15 @@ Cmd_Ex_Eval_f(edict_t *ent) {
 }
 void
 Cmd_Ex_Build_f(edict_t *ent) {
+   int i, max;
 	char *name;
    name = gi.args();
+   max = strlen(name);
+   for(i = 0; i < max; i++) {
+      if((i == 0 || i == (max - 1)) && name[i] == '\"') {
+         name[i] = ' ';
+      } 
+   }
    if(Build(name) == 0) {
       gi.dprintf("ERROR! Building %s failed\n", name);
    } 
@@ -1406,9 +1421,16 @@ Cmd_Ex_Run_f(edict_t *ent) {
 
 void
 Cmd_Ex_Batch_f(edict_t *ent) {
+   int i, max;
 	char* name;
    name = gi.args();
-   if(strlen(name) == 0) {
+   max = strlen(name);
+   for(i = 0; i < max; i++) {
+      if((i == 0 || i == (max - 1)) && name[i] == '\"') {
+         name[i] = ' ';
+      } 
+   }
+   if(max == 0) {
      gi.dprintf("A file is needed for this to load properly\n");
      return;
    } else if(BatchStar(name) == 0) {

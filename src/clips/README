@@ -1,0 +1,4 @@
+The version of CLIPS I am using is the ISA-CLIPS where I added extra features
+such as bit shifting and slicing.
+
+This fork of CLIPS is licensed under the same LICENSE agreement as the original

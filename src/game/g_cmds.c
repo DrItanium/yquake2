@@ -1382,6 +1382,9 @@ Cmd_Ex_Eval_f(edict_t *ent) {
       } else if(type == EXTERNAL_ADDRESS) {
          gi.dprintf("external-address\n");
          return;
+      } else if (type == FACT_ADDRESS) {
+         gi.dprintf("fact-address\n");
+         return;
       } else {
          //STRING, SYMBOL, or INSTANCE_NAME
          tmpStr = DOToString(obj); 

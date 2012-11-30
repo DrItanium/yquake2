@@ -1182,6 +1182,8 @@ Cmd_PlayerList_f(edict_t *ent)
 
 void Cmd_Ex_Eval_f(edict_t *ent);
 void Cmd_Ex_Build_f(edict_t *ent);
+void Cmd_Ex_Run_f(edict_t *ent);
+void Cmd_Ex_Batch_f(edict_t *ent);
 void
 ClientCommand(edict_t *ent)
 {
@@ -1325,6 +1327,10 @@ ClientCommand(edict_t *ent)
       Cmd_Ex_Eval_f(ent);   
    } else if(Q_stricmp(cmd, "ex_build") == 0) {
       Cmd_Ex_Build_f(ent);
+   } else if(Q_stricmp(cmd, "ex_run") == 0) {
+      Cmd_Ex_Run_f(ent);
+   } else if(Q_stricmp(cmd, "ex_batch") == 0) {
+      Cmd_Ex_Batch_f(ent);
    }
 	else /* anything that doesn't match a command will be a chat */
 	{
@@ -1340,9 +1346,12 @@ Cmd_Ex_Eval_f(edict_t *ent) {
    name = gi.args();
    if(Eval(name, &obj) == 0) {
       gi.dprintf("ERROR! Evaluating %s failed\n", name);
+      return;
    } else {
       tmp = DOToString(obj); 
-      gi.dprintf("%s\n", tmp);
+      if(Q_stricmp(tmp, "FALSE") != 0) {
+         gi.dprintf("%s\n", tmp);
+      }
    }
 }
 void
@@ -1351,5 +1360,34 @@ Cmd_Ex_Build_f(edict_t *ent) {
    name = gi.args();
    if(Build(name) == 0) {
       gi.dprintf("ERROR! Building %s failed\n", name);
+   } 
+}
+
+void
+Cmd_Ex_Run_f(edict_t *ent) {
+	char *name;
+   int result;
+   name = gi.args();
+   if(strlen(name) == 0) {
+      Run(-1L);
+   } else {
+      result = atoi(name); 
+      if(result <= 0) {
+         Run(-1L);
+      } else {
+         Run(result);
+      }
+   }
+}
+
+void
+Cmd_Ex_Batch_f(edict_t *ent) {
+	char* name;
+   name = gi.args();
+   if(strlen(name) == 0) {
+     gi.dprintf("A file is needed for this to load properly\n");
+     return;
+   } else if(BatchStar(name) == 0) {
+      gi.dprintf("ERROR! Couldn't batch %s \n", name);
    } 
 }

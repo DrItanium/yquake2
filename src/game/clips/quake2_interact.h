@@ -18,5 +18,7 @@
  * 02111-1307, USA.
  *
  */
-
+#ifndef quake2_interact_h
+#define quake2_interact_h
 extern void QuakeInteractionDefinitions(void* theEnv);
+#endif

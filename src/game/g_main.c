@@ -25,6 +25,7 @@
  */
 
 #include "header/local.h"
+#include "clips/clips.h"
 
 extern game_locals_t game;
 extern level_locals_t level;
@@ -93,10 +94,16 @@ void ReadGame(char *filename);
 void WriteLevel(char *filename);
 void ReadLevel(char *filename);
 void InitGame(void);
+void InitGameCustom(void);
 void G_RunFrame(void);
 
 /* =================================================================== */
-
+void 
+InitGameCustom(void) {
+   InitGame();
+   InitializeEnvironment();  
+   gi.dprintf("==== CLIPS Initialized ====\n");
+}
 void
 ShutdownGame(void)
 {
@@ -104,6 +111,8 @@ ShutdownGame(void)
 
 	gi.FreeTags(TAG_LEVEL);
 	gi.FreeTags(TAG_GAME);
+   DestroyEnvironment();
+   gi.dprintf("==== CLIPS Destroyed ====\n");
 }
 
 /*
@@ -117,7 +126,7 @@ GetGameAPI(game_import_t *import)
 	gi = *import;
 
 	globals.apiversion = GAME_API_VERSION;
-	globals.Init = InitGame;
+	globals.Init = InitGameCustom;
 	globals.Shutdown = ShutdownGame;
 	globals.SpawnEntities = SpawnEntities;
 

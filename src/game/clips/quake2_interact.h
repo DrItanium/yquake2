@@ -20,5 +20,5 @@
  */
 #ifndef quake2_interact_h
 #define quake2_interact_h
-extern void QuakeInteractionDefinitions(void* theEnv);
+extern void InitializeQuakeInterface(void* theEnv);
 #endif

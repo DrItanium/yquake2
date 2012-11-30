@@ -31,7 +31,7 @@ static int FindQuake(void *,char *);
 static int ExitQuake(void *,int);
 static int PrintQuake(void *,char *,char *);
 
-extern void QuakeInteractionDefinitions(void* theEnv) {
+extern void InitializeQuakeInterface(void* theEnv) {
    EnvAddRouter(theEnv, "quake", 40, FindQuake, PrintQuake,
          NULL, NULL, //doesn't handle input
          ExitQuake);

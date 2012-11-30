@@ -80,6 +80,6 @@ void EnvUserFunctions(
 #pragma unused(theEnv)
 #endif
 	  BinaryOperationsFunctionDefinitions(theEnv);
-     QuakeInteractionDefinitons(theEnv);
+     InitializeQuakeInterface(theEnv);
   }
 

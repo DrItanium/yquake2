@@ -74,6 +74,8 @@ OSX_ARCH := -arch i386 -arch x86_64
 # Contents/Resources
 OSX_APP := yes
 
+# This option will enable the expert system backend and all associated code
+WITH_CLIPS:=yes
 # ====================================================== #
 #     !!! DO NOT ALTER ANYTHING BELOW THIS LINE !!!      #
 # ====================================================== #

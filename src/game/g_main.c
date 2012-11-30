@@ -111,7 +111,7 @@ ShutdownGame(void)
 
 	gi.FreeTags(TAG_LEVEL);
 	gi.FreeTags(TAG_GAME);
-   DestroyEnvironment();
+   DeallocateEnvironmentData();
    gi.dprintf("==== CLIPS Destroyed ====\n");
 }
 

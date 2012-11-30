@@ -18,20 +18,19 @@
  * 02111-1307, USA.
  *
  */
+#include "clips.h"
 #include "quake2_interact.h" 
-#include "router.h"
 #include "../header/local.h"
 
 static int FindQuake(void *,char *);
-static int GetcQuake(void *,char *);
-static int UngetcQuake(void *,int,char *);
 static int ExitQuake(void *,int);
 static int PrintQuake(void *,char *,char *);
 
 extern void QuakeInteractionDefinitions(void* theEnv) {
    EnvAddRouter(theEnv, "quake", 40, FindQuake, PrintQuake,
-         GetcQuake, UngetcQuake, ExitQuake);
-   gi.dprintf("Created Quake IO Router\n");
+         NULL, NULL, //doesn't handle input
+         ExitQuake);
+   gi.dprintf("Created IO Router for Quake Console\n");
 }
 
 static int FindQuake(void *theEnv, char* logicalName) {
@@ -53,29 +52,8 @@ static int PrintQuake(void *theEnv, char* logicalName, char* str) {
    return (1);
 }
 
-static int GetcQuake(void* theEnv, char* logicalName) {
-   int rv;
-
-   if((strcmp(logicalName, "quake") != 0)) {
-      EnvDeactivateRouter(theEnv, "quake");
-      rv = EnvGetcRouter(theEnv, logicalName);
-      EnvActivateRouter(theEnv, "quake");
-   } 
-   return rv;
-}
-
-static int UngetcQuake(void* theEnv, int ch, char* logicalName) {
-   int rv;
-   //do we need this? Don't think so
-   EnvDeactivateRouter(theEnv, "quake");
-   rv = EnvUngetcRouter(theEnv, ch, logicalName);
-   EnvActivateRouter(theEnv, "quake");
-
-   return rv;
-}
-
 static int ExitQuake(void* theEnv, int num) {
-   gi.dprintf("Deactivating Quake IO Router\n");
+   gi.dprintf("Deactivating IO Router for Quake Console\n");
 
    return (1);
 }

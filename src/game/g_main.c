@@ -480,8 +480,9 @@ G_RunFrame(void)
 	/* see if needpass needs updated */
 	CheckNeedPass();
 
-   /* Run the expert system */
-   Run(-1L);
+   /* Run the expert system - When this is running it's not smart to allow
+    * assertions to occur */
+   //Run(-1L);
 
 	/* build the playerstate_t structures for all players */
 	ClientEndServerFrames();

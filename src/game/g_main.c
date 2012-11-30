@@ -482,7 +482,7 @@ G_RunFrame(void)
 
    /* Run the expert system - When this is running it's not smart to allow
     * assertions to occur */
-   //Run(-1L);
+   Run(-1L);
 
 	/* build the playerstate_t structures for all players */
 	ClientEndServerFrames();

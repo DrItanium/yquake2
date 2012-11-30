@@ -42,6 +42,7 @@ static int FindQuake(void *theEnv, char* logicalName) {
 
    if ( (strcmp(logicalName,"stdout") == 0) ||
          (strcmp(logicalName, "quake") == 0) ||
+         (strcmp(logicalName, WDISPLAY) == 0) ||
          (strcmp(logicalName,WERROR) == 0))
    { return(TRUE); }
    return(FALSE);

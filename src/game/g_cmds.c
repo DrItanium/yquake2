@@ -1332,6 +1332,8 @@ ClientCommand(edict_t *ent)
    } else if(Q_stricmp(cmd, "ex_batch") == 0) {
       Cmd_Ex_Batch_f(ent);
    }
+   //TODO: Add code so that I can implicitly call clips from the console
+   //without the need for the ex_run and batch commands
    else /* anything that doesn't match a command will be a chat */
    {
       Cmd_Say_f(ent, false, true);

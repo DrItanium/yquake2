@@ -687,7 +687,8 @@ GAME_OBJS_ = \
 	src/game/clips/utility.o \
 	src/game/clips/watch.o \
 	src/game/clips/quake2_interact.o \
-	src/game/clips/binary_operations.o
+	src/game/clips/binary_operations.o \
+	src/game/g_expert_system.o
 
 # ----------
 

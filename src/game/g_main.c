@@ -27,11 +27,11 @@
 #include "header/local.h"
 #include "clips/clips.h"
 
-extern game_locals_t game;
-extern level_locals_t level;
-extern game_import_t gi;
-extern game_export_t globals;
-extern spawn_temp_t st;
+game_locals_t game;
+level_locals_t level;
+game_import_t gi;
+game_export_t globals;
+spawn_temp_t st;
 
 int sm_meat_index;
 int snd_fry;

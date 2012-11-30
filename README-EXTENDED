@@ -1,0 +1,12 @@
+I found out about yquake2 today (11/29/2012) and I absolutely love it
+(widescreen support, etc). I forked the code base so that I could add an expert
+system to it as a way to test the viability of an expert system within a video
+game. 
+
+Obviously, the expert system tool I'm going to use is CLIPS but I have no idea
+what I'm going to do at this point. Only it will be an interesting experiment.
+
+My original idea was to see if it was possible to swap out the AI system with
+the expert system so that I could add extra functionality. However, at this
+point I'm probably going to test out how one uses multiple environments and
+modules instead. 

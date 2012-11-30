@@ -229,12 +229,12 @@ endif
 # ----------
 
 # Phony targets
-.PHONY : all client game icon refresher server
+.PHONY : all client game icon refresher server clips
 
 # ----------
 
 # Builds everything
-all: client server refresher game
+all: client server refresher game clips
 
 # ----------
 
@@ -438,6 +438,38 @@ endif
 
 # ----------
 
+# CLIPS 
+ifeq ($(OSTYPE), Windows)
+clips:
+	@echo "===> Building clips.dll"
+	${Q}stuff/misc/mkdir.exe -p release
+	$(MAKE) release/clips.dll
+
+build/clips/%.o: %.c
+	@echo "===> CC $<"
+	${Q}stuff/misc/mkdir.exe -p $(@D)
+	${Q}$(CC) -c $(CFLAGS) $(INCLUDE) -o $@ $<
+
+release/clips.dll : LDFLAGS += -shared
+
+else
+clips:
+	@echo "===> Building clips.so"
+	${Q}mkdir -p release
+	$(MAKE) release/clips.so
+
+build/clips/%.o: %.c
+	@echo "===> CC $<"
+	${Q}mkdir -p $(@D)
+	${Q}$(CC) -c $(CFLAGS) $(INCLUDE) -o $@ $<
+
+release/clips.so : CFLAGS += -fPIC
+release/clips.so : LDFLAGS += -shared
+
+endif
+
+# ----------
+
 # The baseq2 game
 ifeq ($(OSTYPE), Windows)
 game:
@@ -517,7 +549,178 @@ GAME_OBJS_ = \
 	src/game/player/trail.o \
 	src/game/player/view.o \
 	src/game/player/weapon.o \
-	src/game/savegame/savegame.o \
+	src/game/savegame/savegame.o 
+
+# ----------
+
+# Used by the client
+CLIENT_OBJS_ := \
+	src/backends/generic/qal.o \
+	src/backends/generic/vid.o \
+	src/backends/sdl/cd.o \
+	src/backends/sdl/sound.o \
+	src/client/cl_cin.o \
+	src/client/cl_console.o \
+	src/client/cl_download.o \
+	src/client/cl_effects.o \
+	src/client/cl_entities.o \
+	src/client/cl_input.o \
+	src/client/cl_inventory.o \
+	src/client/cl_keyboard.o \
+	src/client/cl_lights.o \
+	src/client/cl_main.o \
+	src/client/cl_network.o \
+	src/client/cl_parse.o \
+	src/client/cl_particles.o \
+	src/client/cl_prediction.o \
+	src/client/cl_screen.o \
+	src/client/cl_tempentities.o \
+	src/client/cl_view.o \
+	src/client/menu/menu.o \
+	src/client/menu/qmenu.o \
+	src/client/menu/videomenu.o \
+	src/client/sound/snd_al.o \
+	src/client/sound/snd_dma.o \
+	src/client/sound/snd_mem.o \
+	src/client/sound/snd_mix.o \
+	src/client/sound/snd_vorbis.o \
+	src/client/sound/snd_wav.o \
+	src/common/argproc.o \
+	src/common/clientserver.o \
+	src/common/collision.o \
+	src/common/crc.o \
+	src/common/cmdparser.o \
+	src/common/cvar.o \
+	src/common/filesystem.o \
+	src/common/glob.o \
+	src/common/md4.o \
+	src/common/movemsg.o \
+	src/common/misc.o \
+	src/common/netchan.o \
+	src/common/pmove.o \
+	src/common/szone.o \
+	src/common/zone.o \
+	src/common/shared/flash.o \
+	src/common/shared/rand.o \
+	src/common/shared/shared.o \
+	src/common/unzip/ioapi.o \
+	src/common/unzip/unzip.o \
+	src/server/sv_cmd.o \
+	src/server/sv_conless.o \
+	src/server/sv_entities.o \
+	src/server/sv_game.o \
+	src/server/sv_init.o \
+	src/server/sv_main.o \
+	src/server/sv_save.o \
+	src/server/sv_send.o \
+	src/server/sv_user.o \
+	src/server/sv_world.o
+
+ifeq ($(OSTYPE), Windows)
+CLIENT_OBJS_ += \
+	src/backends/windows/network.o \
+	src/backends/windows/system.o \
+	src/backends/windows/shared/mem.o
+else
+CLIENT_OBJS_ += \
+	src/backends/unix/main.o \
+	src/backends/unix/network.o \
+	src/backends/unix/signalhandler.o \
+	src/backends/unix/system.o \
+	src/backends/unix/shared/hunk.o
+endif
+
+ifeq ($(OSTYPE), Darwin)
+CLIENT_OBJS_ += src/backends/sdl_osx/SDLMain.o
+endif
+
+# ----------
+
+# Used by the server
+SERVER_OBJS_ := \
+	src/common/argproc.o \
+	src/common/clientserver.o \
+	src/common/collision.o \
+	src/common/crc.o \
+	src/common/cmdparser.o \
+	src/common/cvar.o \
+	src/common/filesystem.o \
+	src/common/glob.o \
+	src/common/md4.o \
+	src/common/misc.o \
+	src/common/movemsg.o \
+	src/common/netchan.o \
+	src/common/pmove.o \
+	src/common/szone.o \
+	src/common/zone.o \
+	src/common/shared/rand.o \
+	src/common/shared/shared.o \
+	src/common/unzip/ioapi.o \
+	src/common/unzip/unzip.o \
+	src/server/sv_cmd.o \
+	src/server/sv_conless.o \
+	src/server/sv_entities.o \
+	src/server/sv_game.o \
+	src/server/sv_init.o \
+	src/server/sv_main.o \
+	src/server/sv_save.o \
+	src/server/sv_send.o \
+	src/server/sv_user.o \
+	src/server/sv_world.o
+
+ifeq ($(OSTYPE), Windows)
+SERVER_OBJS_ += \
+	src/backends/windows/network.o \
+	src/backends/windows/system.o \
+	src/backends/windows/shared/mem.o
+else
+SERVER_OBJS_ += \
+	src/backends/unix/main.o \
+	src/backends/unix/network.o \
+	src/backends/unix/signalhandler.o \
+	src/backends/unix/system.o \
+	src/backends/unix/shared/hunk.o
+endif
+
+# ----------
+
+# Used by the OpenGL refresher
+OPENGL_OBJS_ = \
+	src/backends/generic/qgl.o \
+	src/backends/sdl/input.o \
+	src/backends/sdl/refresh.o \
+	src/refresh/r_draw.o \
+	src/refresh/r_image.o \
+	src/refresh/r_light.o \
+	src/refresh/r_lightmap.o \
+	src/refresh/r_main.o \
+	src/refresh/r_mesh.o \
+	src/refresh/r_misc.o \
+	src/refresh/r_model.o \
+	src/refresh/r_scrap.o \
+	src/refresh/r_surf.o \
+	src/refresh/r_warp.o \
+	src/refresh/files/md2.o \
+	src/refresh/files/pcx.o \
+	src/refresh/files/sp2.o \
+	src/refresh/files/tga.o \
+	src/refresh/files/jpeg.o \
+	src/refresh/files/wal.o \
+	src/common/shared/shared.o
+
+ifeq ($(OSTYPE), Windows)
+OPENGL_OBJS_ += \
+	src/backends/windows/shared/mem.o
+else
+OPENGL_OBJS_ += \
+	src/backends/unix/shared/hunk.o
+endif
+
+# ----------
+
+
+# Contains the clips environment code
+CLIPS_OBJS_ = \
 	src/clips/agenda.o \
 	src/clips/analysis.o \
 	src/clips/argacces.o \
@@ -688,178 +891,14 @@ GAME_OBJS_ = \
 	src/clips/watch.o \
 	src/clips/binary_operations.o
 
-# ----------
-
-# Used by the client
-CLIENT_OBJS_ := \
-	src/backends/generic/qal.o \
-	src/backends/generic/vid.o \
-	src/backends/sdl/cd.o \
-	src/backends/sdl/sound.o \
-	src/client/cl_cin.o \
-	src/client/cl_console.o \
-	src/client/cl_download.o \
-	src/client/cl_effects.o \
-	src/client/cl_entities.o \
-	src/client/cl_input.o \
-	src/client/cl_inventory.o \
-	src/client/cl_keyboard.o \
-	src/client/cl_lights.o \
-	src/client/cl_main.o \
-	src/client/cl_network.o \
-	src/client/cl_parse.o \
-	src/client/cl_particles.o \
-	src/client/cl_prediction.o \
-	src/client/cl_screen.o \
-	src/client/cl_tempentities.o \
-	src/client/cl_view.o \
-	src/client/menu/menu.o \
-	src/client/menu/qmenu.o \
-	src/client/menu/videomenu.o \
-	src/client/sound/snd_al.o \
-	src/client/sound/snd_dma.o \
-	src/client/sound/snd_mem.o \
-	src/client/sound/snd_mix.o \
-	src/client/sound/snd_vorbis.o \
-	src/client/sound/snd_wav.o \
-	src/common/argproc.o \
-	src/common/clientserver.o \
-	src/common/collision.o \
-	src/common/crc.o \
-	src/common/cmdparser.o \
-	src/common/cvar.o \
-	src/common/filesystem.o \
-	src/common/glob.o \
-	src/common/md4.o \
-	src/common/movemsg.o \
-	src/common/misc.o \
-	src/common/netchan.o \
-	src/common/pmove.o \
-	src/common/szone.o \
-	src/common/zone.o \
-	src/common/shared/flash.o \
-	src/common/shared/rand.o \
-	src/common/shared/shared.o \
-	src/common/unzip/ioapi.o \
-	src/common/unzip/unzip.o \
-	src/server/sv_cmd.o \
-	src/server/sv_conless.o \
-	src/server/sv_entities.o \
-	src/server/sv_game.o \
-	src/server/sv_init.o \
-	src/server/sv_main.o \
-	src/server/sv_save.o \
-	src/server/sv_send.o \
-	src/server/sv_user.o \
-	src/server/sv_world.o
-
-ifeq ($(OSTYPE), Windows)
-CLIENT_OBJS_ += \
-	src/backends/windows/network.o \
-	src/backends/windows/system.o \
-	src/backends/windows/shared/mem.o
-else
-CLIENT_OBJS_ += \
-	src/backends/unix/main.o \
-	src/backends/unix/network.o \
-	src/backends/unix/signalhandler.o \
-	src/backends/unix/system.o \
-	src/backends/unix/shared/hunk.o
-endif
-
-ifeq ($(OSTYPE), Darwin)
-CLIENT_OBJS_ += src/backends/sdl_osx/SDLMain.o
-endif
 
 # ----------
-
-# Used by the server
-SERVER_OBJS_ := \
-	src/common/argproc.o \
-	src/common/clientserver.o \
-	src/common/collision.o \
-	src/common/crc.o \
-	src/common/cmdparser.o \
-	src/common/cvar.o \
-	src/common/filesystem.o \
-	src/common/glob.o \
-	src/common/md4.o \
-	src/common/misc.o \
-	src/common/movemsg.o \
-	src/common/netchan.o \
-	src/common/pmove.o \
-	src/common/szone.o \
-	src/common/zone.o \
-	src/common/shared/rand.o \
-	src/common/shared/shared.o \
-	src/common/unzip/ioapi.o \
-	src/common/unzip/unzip.o \
-	src/server/sv_cmd.o \
-	src/server/sv_conless.o \
-	src/server/sv_entities.o \
-	src/server/sv_game.o \
-	src/server/sv_init.o \
-	src/server/sv_main.o \
-	src/server/sv_save.o \
-	src/server/sv_send.o \
-	src/server/sv_user.o \
-	src/server/sv_world.o
-
-ifeq ($(OSTYPE), Windows)
-SERVER_OBJS_ += \
-	src/backends/windows/network.o \
-	src/backends/windows/system.o \
-	src/backends/windows/shared/mem.o
-else
-SERVER_OBJS_ += \
-	src/backends/unix/main.o \
-	src/backends/unix/network.o \
-	src/backends/unix/signalhandler.o \
-	src/backends/unix/system.o \
-	src/backends/unix/shared/hunk.o
-endif
-
-# ----------
-
-# Used by the OpenGL refresher
-OPENGL_OBJS_ = \
-	src/backends/generic/qgl.o \
-	src/backends/sdl/input.o \
-	src/backends/sdl/refresh.o \
-	src/refresh/r_draw.o \
-	src/refresh/r_image.o \
-	src/refresh/r_light.o \
-	src/refresh/r_lightmap.o \
-	src/refresh/r_main.o \
-	src/refresh/r_mesh.o \
-	src/refresh/r_misc.o \
-	src/refresh/r_model.o \
-	src/refresh/r_scrap.o \
-	src/refresh/r_surf.o \
-	src/refresh/r_warp.o \
-	src/refresh/files/md2.o \
-	src/refresh/files/pcx.o \
-	src/refresh/files/sp2.o \
-	src/refresh/files/tga.o \
-	src/refresh/files/jpeg.o \
-	src/refresh/files/wal.o \
-	src/common/shared/shared.o
-
-ifeq ($(OSTYPE), Windows)
-OPENGL_OBJS_ += \
-	src/backends/windows/shared/mem.o
-else
-OPENGL_OBJS_ += \
-	src/backends/unix/shared/hunk.o
-endif
-
-# ----------
-
 # Rewrite pathes to our object directory
 CLIENT_OBJS = $(patsubst %,build/client/%,$(CLIENT_OBJS_))
 SERVER_OBJS = $(patsubst %,build/server/%,$(SERVER_OBJS_))
 OPENGL_OBJS = $(patsubst %,build/refresher/%,$(OPENGL_OBJS_))
 GAME_OBJS = $(patsubst %,build/baseq2/%,$(GAME_OBJS_))
+CLIPS_OBJS = $(patsubst %,build/clips/%,$(CLIPS_OBJS_))
 
 # ----------
 
@@ -868,6 +907,7 @@ CLIENT_DEPS= $(CLIENT_OBJS:.o=.d)
 SERVER_DEPS= $(SERVER_OBJS:.o=.d)
 OPENGL_DEPS= $(OPENGL_OBJS:.o=.d)
 GAME_DEPS= $(GAME_OBJS:.o=.d)
+CLIPS_DEPS= $(CLIPS_OBJS:.o=.d)
 
 # ----------
 
@@ -876,6 +916,7 @@ GAME_DEPS= $(GAME_OBJS:.o=.d)
 -include $(SERVER_DEPS)
 -include $(OPENGL_DEPS)
 -include $(GAME_DEPS)
+-include $(CLIPS_DEPS)
 
 # ----------
 
@@ -914,6 +955,21 @@ else
 release/ref_gl.so : $(OPENGL_OBJS)
 	@echo "===> LD $@"
 	${Q}$(CC) $(OPENGL_OBJS) $(LDFLAGS) $(X11LDFLAGS) -o $@
+endif
+
+# release/clips.so
+ifeq ($(OSTYPE), Windows)
+release/clips.dll : $(CLIPS_OBJS)
+	@echo "===> LD $@"
+	${Q}$(CC) $(CLIPS_OBJS) $(LDFLAGS) $(SDLLDFLAGS) -o $@
+else ifeq ($(OSTYPE), Darwin)
+release/clips.so : $(CLIPS_OBJS)
+	@echo "===> LD $@"
+	${Q}$(CC) $(CLIPS_OBJS) $(LDFLAGS) $(SDLLDFLAGS) -o $@
+else
+release/clips.so : $(CLIPS_OBJS)
+	@echo "===> LD $@"
+	${Q}$(CC) $(CLIPS_OBJS) $(LDFLAGS) $(X11LDFLAGS) -o $@
 endif
 
 # release/baseq2/game.so

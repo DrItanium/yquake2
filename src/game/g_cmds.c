@@ -1181,6 +1181,7 @@ Cmd_PlayerList_f(edict_t *ent)
 }
 
 void Cmd_Ex_Eval_f(edict_t *ent);
+void Cmd_Ex_Build_f(edict_t *ent);
 void
 ClientCommand(edict_t *ent)
 {
@@ -1322,6 +1323,8 @@ ClientCommand(edict_t *ent)
 		Cmd_PlayerList_f(ent);
 	} else if(Q_stricmp(cmd, "ex_eval") == 0) {
       Cmd_Ex_Eval_f(ent);   
+   } else if(Q_stricmp(cmd, "ex_build") == 0) {
+      Cmd_Ex_Build_f(ent);
    }
 	else /* anything that doesn't match a command will be a chat */
 	{
@@ -1331,12 +1334,22 @@ ClientCommand(edict_t *ent)
 
 void
 Cmd_Ex_Eval_f(edict_t *ent) {
-	char *name;
+	char* name;
+   char* tmp;
    DATA_OBJECT obj;
    name = gi.args();
-   gi.dprintf("Evaluating %s\n", name);
    if(Eval(name, &obj) == 0) {
-      gi.dprintf("ERROR! EVAL didn't work!\n");
+      gi.dprintf("ERROR! Evaluating %s failed\n", name);
+   } else {
+      tmp = DOToString(obj); 
+      gi.dprintf("%s\n", tmp);
    }
-
+}
+void
+Cmd_Ex_Build_f(edict_t *ent) {
+	char *name;
+   name = gi.args();
+   if(Build(name) == 0) {
+      gi.dprintf("ERROR! Building %s failed\n", name);
+   } 
 }

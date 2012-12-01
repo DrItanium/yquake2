@@ -22,8 +22,10 @@
 (defrule define-stages
  "Defines the stage control fact used to provide some semblance of ordering"
  (declare (salience 10000))
- (initial-fact)
+ ;this fact is asserted by quake2 each time G_RunFrame is called
+ ?fct <- (define-stages)
  =>
+ (retract ?fct)
  (assert (stage Init Actions Stale)))
 
 (defrule advance-stage

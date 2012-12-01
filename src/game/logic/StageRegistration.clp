@@ -21,7 +21,17 @@
 ;--------------------------------------------------------------------
 (defrule define-stages
  "Defines the stage control fact used to provide some semblance of ordering"
+ (declare (salience 10000))
  (initial-fact)
  =>
  (assert (stage Init Actions Stale)))
+
+(defrule advance-stage
+ "Move to the next stage"
+ (declare (salience -10000))
+ ?fct <- (stage ?curr $?rest)
+ =>
+ (retract ?fct)
+ (if (> (length$ ?rest) 0) then
+  (assert (stage $?rest))))
 

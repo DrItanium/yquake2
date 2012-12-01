@@ -48,8 +48,8 @@ monster_fire_bullet(edict_t *self, vec3_t start, vec3_t dir, int damage,
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
    Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: fire type: bullet from: %d })",
-         self);
+         "({ env: quake2 action: fire type: bullet from: %d class: %s })",
+         self, self->classname);
    AssertString(fact);
 }
 
@@ -71,8 +71,8 @@ monster_fire_shotgun(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
    Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: fire type: shotgun from: %d })",
-         self);
+         "({ env: quake2 action: fire type: shotgun from: %d class: %s })",
+         self, self->classname);
    AssertString(fact);
 }
 
@@ -93,8 +93,8 @@ monster_fire_blaster(edict_t *self, vec3_t start, vec3_t dir, int damage,
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
    Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: fire type: blaster from: %d })",
-         self);
+         "({ env: quake2 action: fire type: blaster from: %d class: %s })",
+         self, self->classname);
    AssertString(fact);
 }
 
@@ -115,8 +115,8 @@ monster_fire_grenade(edict_t *self, vec3_t start, vec3_t aimdir,
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
    Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: fire type: grenade from: %d })",
-         self);
+         "({ env: quake2 action: fire type: grenade from: %d class: %s })",
+         self, self->classname);
    AssertString(fact);
 }
 
@@ -137,8 +137,8 @@ monster_fire_rocket(edict_t *self, vec3_t start, vec3_t dir,
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
    Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: fire type: rocket from: %d })",
-         self);
+         "({ env: quake2 action: fire type: rocket from: %d class: %s })",
+         self, self->classname);
    AssertString(fact);
 }
 
@@ -159,8 +159,8 @@ monster_fire_railgun(edict_t *self, vec3_t start, vec3_t aimdir,
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
    Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: fire type: railgun from: %d })",
-         self);
+         "({ env: quake2 action: fire type: railgun from: %d class: %s })",
+         self, self->classname);
    AssertString(fact);
 }
 
@@ -182,8 +182,8 @@ monster_fire_bfg(edict_t *self, vec3_t start, vec3_t aimdir,
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
    Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: fire type: bfg from: %d })",
-         self);
+         "({ env: quake2 action: fire type: bfg from: %d class: %s })",
+         self, self->classname);
    AssertString(fact);
 }
 

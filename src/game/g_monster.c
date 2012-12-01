@@ -682,7 +682,7 @@ monster_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 
 	/* delay reaction so if the monster is
 	   teleported, its sound is still heard */
-   Com_sprintf(fact, sizeof(fact), "({ env: quake2 action: anger target: %d enemy: %d})", self, activator); 
+   Com_sprintf(fact, sizeof(fact), "({ env: quake2 action: anger target: %d enemy: %d target-classname: %s enemy-classname: %s })", self, activator, self->classname, activator->classname); 
    AssertString(fact);
 	self->enemy = activator;
 	FoundTarget(self);

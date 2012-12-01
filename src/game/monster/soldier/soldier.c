@@ -28,6 +28,7 @@
 
 #include "../../header/local.h"
 #include "soldier.h"
+#include "../../clips/clips.h"
 
 static int sound_idle;
 static int sound_sight1;
@@ -1576,6 +1577,7 @@ SP_monster_soldier_x(edict_t *self)
 	self->monsterinfo.stand(self);
 
 	walkmonster_start(self);
+   
 }
 
 /*
@@ -1584,6 +1586,7 @@ SP_monster_soldier_x(edict_t *self)
 void
 SP_monster_soldier_light(edict_t *self)
 {
+   char instance[1024];
 	if (!self)
 	{
 		return;
@@ -1606,6 +1609,10 @@ SP_monster_soldier_light(edict_t *self)
 	self->s.skinnum = 0;
 	self->health = 20;
 	self->gib_health = -30;
+   Com_sprintf(instance, sizeof(instance), "( of Monster (classname %s) (pointer %d))", 
+               self->classname, 
+               self);
+   MakeInstance(instance);
 }
 
 /*

@@ -103,6 +103,8 @@ InitGameCustom(void) {
    InitGame();
    InitializeEnvironment();  
    gi.dprintf("==== CLIPS Initialized ====\n");
+   /* hardcoded path, but I really don't care at this point */
+   BatchStar("expert/logic/Init.clp");
 }
 void
 ShutdownGame(void)
@@ -417,6 +419,7 @@ ExitLevel(void)
 /*
  * Advances the world by 0.1 seconds
  */
+char* stageCreation = "(define-stages)";
 void
 G_RunFrame(void)
 {
@@ -482,6 +485,7 @@ G_RunFrame(void)
 
    /* Run the expert system - When this is running it's not smart to allow
     * assertions to occur */
+   AssertString(stageCreation);
    Run(-1L);
 
 	/* build the playerstate_t structures for all players */

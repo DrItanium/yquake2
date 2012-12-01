@@ -19,5 +19,5 @@
 ;--------------------------------------------------------------------
 ; Loader for debug functions 
 ;--------------------------------------------------------------------
-(batch* "expert/logic/Debug/Test.clp")
+(batch* "expert/logic/debug/Test.clp")
 

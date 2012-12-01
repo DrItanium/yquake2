@@ -25,6 +25,7 @@
  */
 
 #include "header/local.h"
+#include "clips/clips.h"
 
 void monster_start_go(edict_t *self);
 
@@ -34,6 +35,7 @@ void
 monster_fire_bullet(edict_t *self, vec3_t start, vec3_t dir, int damage,
 		int kick, int hspread, int vspread, int flashtype)
 {
+   char fact[1024];
 	if (!self)
 	{
 		return;
@@ -45,12 +47,17 @@ monster_fire_bullet(edict_t *self, vec3_t start, vec3_t dir, int damage,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
+   Com_sprintf(fact, sizeof(fact), 
+         "({ env: quake2 action: fire type: bullet from: %d })",
+         self);
+   AssertString(fact);
 }
 
 void
 monster_fire_shotgun(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 		int kick, int hspread, int vspread, int count, int flashtype)
 {
+   char fact[1024];
 	if (!self)
 	{
 		return;
@@ -63,12 +70,17 @@ monster_fire_shotgun(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
+   Com_sprintf(fact, sizeof(fact), 
+         "({ env: quake2 action: fire type: shotgun from: %d })",
+         self);
+   AssertString(fact);
 }
 
 void
 monster_fire_blaster(edict_t *self, vec3_t start, vec3_t dir, int damage,
 		int speed, int flashtype, int effect)
 {
+   char fact[1024];
 	if (!self)
 	{
 		return;
@@ -80,12 +92,17 @@ monster_fire_blaster(edict_t *self, vec3_t start, vec3_t dir, int damage,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
+   Com_sprintf(fact, sizeof(fact), 
+         "({ env: quake2 action: fire type: blaster from: %d })",
+         self);
+   AssertString(fact);
 }
 
 void
 monster_fire_grenade(edict_t *self, vec3_t start, vec3_t aimdir,
 		int damage, int speed, int flashtype)
 {
+   char fact[1024];
 	if (!self)
 	{
 		return;
@@ -97,12 +114,17 @@ monster_fire_grenade(edict_t *self, vec3_t start, vec3_t aimdir,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
+   Com_sprintf(fact, sizeof(fact), 
+         "({ env: quake2 action: fire type: grenade from: %d })",
+         self);
+   AssertString(fact);
 }
 
 void
 monster_fire_rocket(edict_t *self, vec3_t start, vec3_t dir,
 		int damage, int speed, int flashtype)
 {
+   char fact[1024];
 	if (!self)
 	{
 		return;
@@ -114,12 +136,17 @@ monster_fire_rocket(edict_t *self, vec3_t start, vec3_t dir,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
+   Com_sprintf(fact, sizeof(fact), 
+         "({ env: quake2 action: fire type: rocket from: %d })",
+         self);
+   AssertString(fact);
 }
 
 void
 monster_fire_railgun(edict_t *self, vec3_t start, vec3_t aimdir,
 		int damage, int kick, int flashtype)
 {
+   char fact[1024];
 	if (!self)
 	{
 		return;
@@ -131,6 +158,10 @@ monster_fire_railgun(edict_t *self, vec3_t start, vec3_t aimdir,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
+   Com_sprintf(fact, sizeof(fact), 
+         "({ env: quake2 action: fire type: railgun from: %d })",
+         self);
+   AssertString(fact);
 }
 
 void
@@ -138,6 +169,7 @@ monster_fire_bfg(edict_t *self, vec3_t start, vec3_t aimdir,
 		int damage, int speed, int kick /* unused */, float damage_radius,
 		int flashtype)
 {
+   char fact[1024];
 	if (!self)
 	{
 		return;
@@ -149,6 +181,10 @@ monster_fire_bfg(edict_t *self, vec3_t start, vec3_t aimdir,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
+   Com_sprintf(fact, sizeof(fact), 
+         "({ env: quake2 action: fire type: bfg from: %d })",
+         self);
+   AssertString(fact);
 }
 
 /* ================================================================== */
@@ -618,6 +654,7 @@ monster_think(edict_t *self)
 void
 monster_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 {
+   char fact[1024];
 	if (!self || !activator)
 	{
 		return;
@@ -645,6 +682,8 @@ monster_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 
 	/* delay reaction so if the monster is
 	   teleported, its sound is still heard */
+   Com_sprintf(fact, sizeof(fact), "({ env: quake2 action: anger target: %d enemy: %d})", self, activator); 
+   AssertString(fact);
 	self->enemy = activator;
 	FoundTarget(self);
 }

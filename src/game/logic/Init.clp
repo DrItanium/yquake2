@@ -22,6 +22,7 @@
 
 ;we need to use the base of the quake2 directory because clips is retarted
 (batch* "expert/logic/StageRegistration.clp")
+(batch* "expert/logic/types/Loader.clp")
 (batch* "expert/logic/debug/Loader.clp")
 ;Add the stale stage
 (batch* "expert/logic/stages/Stale/StageGroupLoader.clp")

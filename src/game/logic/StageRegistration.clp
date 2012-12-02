@@ -26,7 +26,10 @@
  ?fct <- (define-stages)
  =>
  (retract ?fct)
- (assert (stage Init Actions Stale)))
+ (assert (stage Init 
+			       Actions 
+					 Advance ; occurs before stale removal occurs
+					 Stale)))
 
 (defrule advance-stage
  "Move to the next stage"

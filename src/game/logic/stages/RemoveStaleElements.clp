@@ -17,13 +17,28 @@
 ;Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 ;02111-1307, USA.
 ;--------------------------------------------------------------------
-; Automated stale fact remover 
+; Automated stale fact remover. 
 ;--------------------------------------------------------------------
 (defrule retract-stale-facts 
- "Retracts facts that have a duration of 0"
- (Stage Stale $?)
- ?fct <- ({ env: quake2 $? duration: 0 })
- =>
- (retract ?fct))
+			"Retracts facts that have a duration of 0"
+			(Stage Stale $?)
+			?fct <- ({ env: quake2 $? duration: 0 })
+			=>
+			(retract ?fct))
+;--------------------------------------------------------------------
+(defrule advance-facts
+			"Decreases the duration of a given fact if it is possible to mark it 
+			as stale"
+			(Stage Advance $?)
+			?fct <- ({ env: quake2 
+						  $?contents 
+						  duration: ?d&:(and (numberp ?d) (> ?d 0)) 
+						  }) ; facts marked as continuous or -1 are skipped 
+			=>
+			(retract ?fct)
+			; this will cause the agenda to recompute this fact. This allows the
+			; removal of stale facts to occur on the same pass as the decrementing
+			; to zero.
+			(assert ({ env: quake2 $?contents duration: (- ?d 1))))
 ;--------------------------------------------------------------------
 

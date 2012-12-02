@@ -39,6 +39,6 @@
 			; this will cause the agenda to recompute this fact. This allows the
 			; removal of stale facts to occur on the same pass as the decrementing
 			; to zero.
-			(assert ({ env: quake2 $?contents duration: (- ?d 1))))
+			(assert ({ env: quake2 $?contents duration: (- ?d 1) })))
 ;--------------------------------------------------------------------
 

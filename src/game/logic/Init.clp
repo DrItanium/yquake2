@@ -25,4 +25,4 @@
 (batch* "expert/logic/types/Loader.clp")
 (batch* "expert/logic/debug/Loader.clp")
 ;Add the stale stage
-(batch* "expert/logic/stages/Stale/StageGroupLoader.clp")
+(batch* "expert/logic/stages/StageLoader.clp")

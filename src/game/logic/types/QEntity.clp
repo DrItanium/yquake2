@@ -26,4 +26,4 @@
  (slot pointer (type INTEGER)))
 
 (defmessage-handler QEntity init after ()
- (bind ?self:id (instance-name-to-symol (instance-name ?self))))
+ (bind ?self:id (instance-name-to-symbol (instance-name ?self))))

@@ -20,5 +20,8 @@
 ; Loader for types 
 ;--------------------------------------------------------------------
 (progn 
+ ;make sure that QEntity.clp is first
  (batch* "expert/logic/types/QEntity.clp")
- (batch* "expert/logic/types/Monster.clp"))
+ (batch* "expert/logic/types/Monster.clp")
+ (batch* "expert/logic/types/QEdict.clp"))
+

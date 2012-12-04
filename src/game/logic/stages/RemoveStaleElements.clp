@@ -39,6 +39,16 @@
 			; this will cause the agenda to recompute this fact. This allows the
 			; removal of stale facts to occur on the same pass as the decrementing
 			; to zero.
-			(assert ({ env: quake2 $?contents duration: (- ?d 1) })))
+			(assert (decremented { env: quake2 $?contents duration: (- ?d 1) })))
 ;--------------------------------------------------------------------
-
+(defrule remove-decremented-status
+ "Since facts that are reasserted are readded to the agenda there is no
+ possible way to ensure that a duration is only decremented once during a given
+ call of Run(-1L). Thus it is necessary to tack on an extra bit of knowledge to
+ prevent the advance stage from burning through facts"
+ (stage Advance-Normalization $?)
+ ?fct <- (decremented { $?message })
+ =>
+ (retract ?fct)
+ (assert ({ $?message })))
+;--------------------------------------------------------------------

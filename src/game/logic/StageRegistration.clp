@@ -29,6 +29,7 @@
  (assert (stage Init 
 			       Actions 
 					 Advance ; occurs before stale removal occurs
+           Advance-Normalization
 					 Stale)))
 
 (defrule advance-stage

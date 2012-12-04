@@ -637,6 +637,9 @@ monster_think(edict_t *self)
 	M_CatagorizePosition(self);
 	M_WorldEffects(self);
 	M_SetEffects(self);
+   if(self->privateEnv) {
+      EnvRun(self->privateEnv, -1L);
+   }
 }
 
 /*

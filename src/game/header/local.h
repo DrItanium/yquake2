@@ -578,10 +578,14 @@ extern gitem_t itemlist[];
 /* g_cmds.c */
 void Cmd_Help_f(edict_t *ent);
 void Cmd_Score_f(edict_t *ent);
+/* g_expert_system.c */
 void Cmd_Ex_Eval_f(edict_t *ent);
 void Cmd_Ex_Build_f(edict_t *ent);
 void Cmd_Ex_Run_f(edict_t *ent);
 void Cmd_Ex_Batch_f(edict_t *ent);
+void SetupEnvironment(edict_t *ent);
+void CreateExpertSystemRepresentation(edict_t *ent, qboolean isMonster);
+
 
 /* g_items.c */
 void PrecacheItem(gitem_t *it);

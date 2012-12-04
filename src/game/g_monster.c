@@ -760,6 +760,7 @@ monster_triggered_start(edict_t *self)
 void
 monster_death_use(edict_t *self)
 {
+   char fact[1024];
 	if (!self)
 	{
 		return;
@@ -778,7 +779,10 @@ monster_death_use(edict_t *self)
 	{
 		self->target = self->deathtarget;
 	}
-
+   Com_sprintf(fact, sizeof(fact), "({ env: quake2 action: death target: %d duration: -1 })", self);
+   AssertString(fact);
+   Com_sprintf(fact, sizeof(fact), "({ env: quake2 action: inform-others of: { action: death target: %d } duration: -1 })", self);
+   AssertString(fact);
 	if (!self->target)
 	{
 		return;

@@ -144,3 +144,33 @@ Cmd_Ex_Batch_f(edict_t *ent) {
       gi.dprintf("ERROR! Couldn't batch %s \n", name);
    } 
 }
+
+void
+SetupEnvironment(edict_t *ent) {
+   char instance[512];
+   char instanceRhizome[512];
+   ent->privateEnv = CreateEnvironment();
+   ent->publicEnv = game.rhizome;
+   EnvBatchStar(ent->privateEnv, "expert/logic/Init.clp");
+   Com_sprintf(instance, sizeof(instance), "( of Environment (pointer %llu) (target %llu))",
+         ent->privateEnv, ent);
+   Com_sprintf(instanceRhizome, sizeof(instanceRhizome), "(rhizome of Environment (pointer %llu))",
+         ent->publicEnv);
+   EnvMakeInstance(ent->privateEnv, instanceRhizome);
+   EnvMakeInstance(ent->privateEnv, instance);
+   EnvMakeInstance(ent->publicEnv, instance);
+}
+
+void
+CreateExpertSystemRepresentation(edict_t *ent, qboolean isMonster) {
+   if(isMonster) {
+      char monsterInstance[2048];
+   Com_sprintf(monsterInstance, sizeof(monsterInstance), 
+         "( of QEdict (pointer %llu) (health %d) (gib-health %d) (max-health %d))",
+         self, self->health, self->gib_health, self->health);
+   EnvMakeInstance(self->privateEnv, monsterInstance);
+   EnvMakeInstance(self->publicEnv, monsterInstance);
+   } else {
+      //don't do anything right now 
+   }
+}

@@ -52,7 +52,7 @@ monster_fire_bullet(edict_t *self, vec3_t start, vec3_t dir, int damage,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   AssertFireFact(fact, "bullet", self, self->classname, 5);
+   AssertFireFact(fact, "bullet", self, self->classname, 10);
 }
 
 void
@@ -72,7 +72,7 @@ monster_fire_shotgun(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   AssertFireFact(fact, "shotgun", self, self->classname, 5);
+   AssertFireFact(fact, "shotgun", self, self->classname, 10);
 }
 
 void
@@ -91,7 +91,7 @@ monster_fire_blaster(edict_t *self, vec3_t start, vec3_t dir, int damage,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   AssertFireFact(fact, "blaster", self, self->classname, 5);
+   AssertFireFact(fact, "blaster", self, self->classname, 10);
 }
 
 void
@@ -110,7 +110,7 @@ monster_fire_grenade(edict_t *self, vec3_t start, vec3_t aimdir,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   AssertFireFact(fact, "grenade", self, self->classname, 5);
+   AssertFireFact(fact, "grenade", self, self->classname, 10);
 }
 
 void
@@ -129,7 +129,7 @@ monster_fire_rocket(edict_t *self, vec3_t start, vec3_t dir,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   AssertFireFact(fact, "rocket", self, self->classname, 5);
+   AssertFireFact(fact, "rocket", self, self->classname, 10);
 }
 
 void
@@ -148,7 +148,7 @@ monster_fire_railgun(edict_t *self, vec3_t start, vec3_t aimdir,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   AssertFireFact(fact, "railgun", self, self->classname, 5);
+   AssertFireFact(fact, "railgun", self, self->classname, 10);
 }
 
 void
@@ -168,7 +168,7 @@ monster_fire_bfg(edict_t *self, vec3_t start, vec3_t aimdir,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   AssertFireFact(fact, "bfg", self, self->classname, 5);
+   AssertFireFact(fact, "bfg", self, self->classname, 10);
 }
 
 /* ================================================================== */

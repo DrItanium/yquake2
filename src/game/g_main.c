@@ -101,10 +101,11 @@ void G_RunFrame(void);
 void 
 InitGameCustom(void) {
    InitGame();
+   game.rhizome = CreateEnvironment();
    InitializeEnvironment();  
-   gi.dprintf("==== CLIPS Initialized ====\n");
+   gi.dprintf("==== Rhizome Initialized ====\n");
    /* hardcoded path, but I really don't care at this point */
-   BatchStar("expert/logic/Init.clp");
+   EnvBatchStar(game.rhizome, "expert/logic/Init.clp");
 }
 void
 ShutdownGame(void)
@@ -113,8 +114,8 @@ ShutdownGame(void)
 
 	gi.FreeTags(TAG_LEVEL);
 	gi.FreeTags(TAG_GAME);
-   DeallocateEnvironmentData();
-   gi.dprintf("==== CLIPS Destroyed ====\n");
+   DestroyEnvironment(game.rhizome);
+   gi.dprintf("==== Rhizome Destroyed ====\n");
 }
 
 /*

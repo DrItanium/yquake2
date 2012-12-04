@@ -35,7 +35,8 @@ extern void InitializeQuakeInterface(void* theEnv) {
    EnvAddRouter(theEnv, "quake", 40, FindQuake, PrintQuake,
          NULL, NULL, //doesn't handle input
          ExitQuake);
-   gi.dprintf("Created IO Router for Quake Console\n");
+   /* don't print anything out as it just floods the console */
+   //gi.dprintf("Created IO Router for Quake Console\n");
 }
 
 static int FindQuake(void *theEnv, char* logicalName) {

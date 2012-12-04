@@ -1582,12 +1582,15 @@ SP_monster_soldier_x(edict_t *self)
 	walkmonster_start(self);
 
    char instance[512];
+   char instanceRhizome[512];
    self->privateEnv = CreateEnvironment();
    self->publicEnv = game.rhizome;
    EnvBatchStar(self->privateEnv, "expert/logic/Init.clp");
    Com_sprintf(instance, sizeof(instance), "( of Environment (pointer %llu) (target %llu))",
          self->privateEnv, self);
-
+   Com_sprintf(instance, sizeof(instance), "(rhizome of Environment (pointer %llu))",
+         self->publicEnv);
+   EnvMakeInstance(self->privateEnv, instanceRhizome);
    EnvMakeInstance(self->privateEnv, instance);
    EnvMakeInstance(self->publicEnv, instance);
 }

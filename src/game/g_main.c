@@ -489,7 +489,7 @@ G_RunFrame(void)
 
    /* Run the expert system - When this is running it's not smart to allow
     * assertions to occur */
-   AssertString(stageCreation);
+   EnvAssertString(game.rhizome, stageCreation);
    EnvRun(game.rhizome, -1L);
 
 	/* build the playerstate_t structures for all players */

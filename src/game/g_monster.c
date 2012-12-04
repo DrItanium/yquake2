@@ -30,6 +30,11 @@
 void monster_start_go(edict_t *self);
 
 /* Monster weapons */
+#define AssertFireFact(container, type, from, class, duration) \
+   Com_sprintf(container, sizeof(container), \
+         "({ env: quake2 action: fire type: %s from: %d class: %s duration: %d })", \
+         type, from, class, duration); \
+   AssertString(container)
 
 void
 monster_fire_bullet(edict_t *self, vec3_t start, vec3_t dir, int damage,
@@ -47,10 +52,7 @@ monster_fire_bullet(edict_t *self, vec3_t start, vec3_t dir, int damage,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: fire type: bullet from: %d class: %s })",
-         self, self->classname);
-   AssertString(fact);
+   AssertFireFact(fact, "bullet", self, self->classname, 5);
 }
 
 void
@@ -70,10 +72,7 @@ monster_fire_shotgun(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: fire type: shotgun from: %d class: %s })",
-         self, self->classname);
-   AssertString(fact);
+   AssertFireFact(fact, "shotgun", self, self->classname, 5);
 }
 
 void
@@ -92,10 +91,7 @@ monster_fire_blaster(edict_t *self, vec3_t start, vec3_t dir, int damage,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: fire type: blaster from: %d class: %s })",
-         self, self->classname);
-   AssertString(fact);
+   AssertFireFact(fact, "blaster", self, self->classname, 5);
 }
 
 void
@@ -114,10 +110,7 @@ monster_fire_grenade(edict_t *self, vec3_t start, vec3_t aimdir,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: fire type: grenade from: %d class: %s })",
-         self, self->classname);
-   AssertString(fact);
+   AssertFireFact(fact, "grenade", self, self->classname, 5);
 }
 
 void
@@ -136,10 +129,7 @@ monster_fire_rocket(edict_t *self, vec3_t start, vec3_t dir,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: fire type: rocket from: %d class: %s })",
-         self, self->classname);
-   AssertString(fact);
+   AssertFireFact(fact, "rocket", self, self->classname, 5);
 }
 
 void
@@ -158,10 +148,7 @@ monster_fire_railgun(edict_t *self, vec3_t start, vec3_t aimdir,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: fire type: railgun from: %d class: %s })",
-         self, self->classname);
-   AssertString(fact);
+   AssertFireFact(fact, "railgun", self, self->classname, 5);
 }
 
 void
@@ -181,15 +168,17 @@ monster_fire_bfg(edict_t *self, vec3_t start, vec3_t aimdir,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: fire type: bfg from: %d class: %s })",
-         self, self->classname);
-   AssertString(fact);
+   AssertFireFact(fact, "bfg", self, self->classname, 5);
 }
 
 /* ================================================================== */
 
 /* Monster utility functions */
+#define AssertFlyConsumption(container, target, class, duration) \
+   Com_sprintf(container, sizeof(container), \
+         "({ env: quake2 action: fly-consumption target: %d class: %s duration: %d })", \
+         target, class, duration); \
+   AssertString(container);
 
 void
 M_FliesOff(edict_t *self)
@@ -206,6 +195,7 @@ M_FliesOff(edict_t *self)
 void
 M_FliesOn(edict_t *self)
 {
+   char fact[1024];
 	if (!self)
 	{
 		return;
@@ -220,6 +210,7 @@ M_FliesOn(edict_t *self)
 	self->s.sound = gi.soundindex("infantry/inflies1.wav");
 	self->think = M_FliesOff;
 	self->nextthink = level.time + 60;
+   AssertFlyConsumption(fact, self, self->classname, 60);
 }
 
 void
@@ -1095,3 +1086,6 @@ swimmonster_start(edict_t *self)
 	self->think = swimmonster_start_go;
 	monster_start(self);
 }
+
+#undef AssertFireFact
+#undef AssertFlyConsumption

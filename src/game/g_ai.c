@@ -100,10 +100,10 @@ ai_move(edict_t *self, float dist)
 		return;
 	}
 	M_walkmove(self, self->s.angles[YAW], dist);
-   Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: move target: %d direction: %d distance: %f duration: 1 })",
-         self, self->s.angles[YAW], dist);
-   AssertString(fact);
+   //Com_sprintf(fact, sizeof(fact), 
+    //     "({ env: quake2 action: move target: %d direction: %d distance: %f duration: 1 })",
+     //    self, self->s.angles[YAW], dist);
+   //EnvAssertString(fact);
 }
 
 /*
@@ -193,10 +193,10 @@ ai_walk(edict_t *self, float dist)
 	}
 
 	M_MoveToGoal(self, dist);
-   Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: walk target: %d distance: %f duration: %d })",
-         self, dist, 1);
-   AssertString(fact);
+   //Com_sprintf(fact, sizeof(fact), 
+   //      "({ env: quake2 action: walk target: %d distance: %f duration: %d })",
+   //      self, dist, 1);
+   //AssertString(fact);
 	/* check for noticing a player */
 	if (FindTarget(self))
 	{
@@ -236,10 +236,10 @@ ai_charge(edict_t *self, float dist)
 	VectorSubtract(self->enemy->s.origin, self->s.origin, v);
 	self->ideal_yaw = vectoyaw(v);
 	M_ChangeYaw(self);
-   Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: charge target: %d duration: %d })",
-         self, 1);
-   AssertString(fact);
+   //Com_sprintf(fact, sizeof(fact), 
+   //      "({ env: quake2 action: charge target: %d duration: %d })",
+   //      self, 1);
+   //AssertString(fact);
 
 	if (dist)
 	{
@@ -273,10 +273,10 @@ ai_turn(edict_t *self, float dist)
 	}
 
 	M_ChangeYaw(self);
-   Com_sprintf(fact, sizeof(fact), 
-         "({ env: quake2 action: turn target: %d duration: %d })",
-         self, 1);
-   AssertString(fact);
+   //Com_sprintf(fact, sizeof(fact), 
+   //      "({ env: quake2 action: turn target: %d duration: %d })",
+   //      self, 1);
+   //AssertString(fact);
 }
 
 /* ============================================================================ */

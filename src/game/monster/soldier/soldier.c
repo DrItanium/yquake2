@@ -1588,7 +1588,7 @@ SP_monster_soldier_x(edict_t *self)
    EnvBatchStar(self->privateEnv, "expert/logic/Init.clp");
    Com_sprintf(instance, sizeof(instance), "( of Environment (pointer %llu) (target %llu))",
          self->privateEnv, self);
-   Com_sprintf(instance, sizeof(instance), "(rhizome of Environment (pointer %llu))",
+   Com_sprintf(instanceRhizome, sizeof(instanceRhizome), "(rhizome of Environment (pointer %llu))",
          self->publicEnv);
    EnvMakeInstance(self->privateEnv, instanceRhizome);
    EnvMakeInstance(self->privateEnv, instance);

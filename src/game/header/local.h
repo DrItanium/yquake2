@@ -282,6 +282,8 @@ typedef struct
 	int num_items;
 
 	qboolean autosaved;
+   /* global environment that all other environments plug into */
+   void* rhizome; 
 } game_locals_t;
 
 /* this structure is cleared as each map is entered
@@ -326,6 +328,8 @@ typedef struct
 	int body_que; /* dead bodies */
 
 	int power_cubes; /* ugly necessity for coop */
+   /* level environment */
+   void* levelEnvironment;
 } level_locals_t;
 
 /* spawn_temp_t is only used to hold entity field values that

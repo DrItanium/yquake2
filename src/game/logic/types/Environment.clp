@@ -21,6 +21,7 @@
 ;--------------------------------------------------------------------
 (defclass Environment (is-a USER)
  (slot id (type SYMBOL))
+ (slot target (type INTEGER))
  (slot pointer (type INTEGER)))
 
 (defmessage-handler Environment init after ()

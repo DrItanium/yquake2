@@ -100,18 +100,21 @@ void G_RunFrame(void);
 /* =================================================================== */
 void 
 InitGameCustom(void) {
+   char self[512];
    InitGame();
    game.rhizome = CreateEnvironment();
    InitializeEnvironment();  
    gi.dprintf("==== Rhizome Initialized ====\n");
    /* hardcoded path, but I really don't care at this point */
    EnvBatchStar(game.rhizome, "expert/logic/Init.clp");
+   Com_sprintf(self, sizeof(self), "(rhizome of Environment (pointer %llu))",
+         game.rhizome);
+   EnvMakeInstance(game.rhizome, self);
 }
 void
 ShutdownGame(void)
 {
 	gi.dprintf("==== ShutdownGame ====\n");
-
 	gi.FreeTags(TAG_LEVEL);
 	gi.FreeTags(TAG_GAME);
    DestroyEnvironment(game.rhizome);

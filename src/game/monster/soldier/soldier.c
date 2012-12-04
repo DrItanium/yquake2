@@ -1170,13 +1170,7 @@ soldier_dead(edict_t *self)
 	self->movetype = MOVETYPE_TOSS;
 	self->svflags |= SVF_DEADMONSTER;
 	self->nextthink = 0;
-   /* isn't this supposed to be unlink entity? */
 	gi.linkentity(self);
-   char fact[1024];
-   Com_sprintf(fact, sizeof(fact), "({ env: quake2 action: delete type: object ptr: %llu duration: 1 })",
-         self->privateEnv);
-   DestroyEnvironment(self->privateEnv);
-   EnvAssertString(self->publicEnv, fact);
 }
 
 mframe_t soldier_frames_death1[] = {
@@ -1600,7 +1594,6 @@ SP_monster_soldier_x(edict_t *self)
 void
 SP_monster_soldier_light(edict_t *self)
 {
-   char instance[1024];
 	if (!self)
 	{
 		return;

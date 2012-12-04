@@ -10,3 +10,8 @@ My original idea was to see if it was possible to swap out the AI system with
 the expert system so that I could add extra functionality. However, at this
 point I'm probably going to test out how one uses multiple environments and
 modules instead. 
+
+It looks like I may need to provide each entity with it's own environment so
+that internal operations can occur within it. There will be a global
+environment as well as any gestalt environments used to allow cross
+communication between two or more entities. 

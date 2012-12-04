@@ -1079,8 +1079,6 @@ struct edict_s
    void* privateEnv;
    /* pointer to the level environmnent */
    void* publicEnv;
-   /* pointer to clips representation */
-   void* classPtr;
 };
 
 #endif /* GAME_LOCAL_H */

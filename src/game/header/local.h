@@ -1077,6 +1077,7 @@ struct edict_s
 	monsterinfo_t monsterinfo;
    /* CLIPS environment settings */
    void* privateEnv;
+   /* pointer to the level environmnent */
    void* publicEnv;
 };
 

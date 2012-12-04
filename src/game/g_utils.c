@@ -25,6 +25,7 @@
  */
 
 #include "header/local.h"
+#include "clips/clips.h"
 
 #define MAXCHOICES 8
 
@@ -492,10 +493,18 @@ G_CopyString(char *in)
 void
 G_InitEdict(edict_t *e)
 {
+   char instance[512];
 	e->inuse = true;
 	e->classname = "noclass";
 	e->gravity = 1.0;
 	e->s.number = e - g_edicts;
+   e->privateEnv = CreateEnvironment();
+   e->publicEnv = game.rhizome;
+   EnvBatchStar(e->privateEnv, "expert/logic/Init.clp");
+   Com_sprintf(instance, sizeof(instance), "( of Environment (pointer %llu))",
+         e->privateEnv);
+   EnvMakeInstance(e->privateEnv, instance);
+   EnvMakeInstance(e->publicEnv, instance);
 }
 
 /*
@@ -544,7 +553,12 @@ G_Spawn(void)
 void
 G_FreeEdict(edict_t *ed)
 {
+   char fact[512];
 	gi.unlinkentity(ed); /* unlink from world */
+   Com_sprintf(fact, sizeof(fact), "({ env: quake2 action: delete type: object ptr: %llu duration: 1 })",
+         ed->privateEnv);
+   DestroyEnvironment(ed->privateEnv);
+   EnvAssertString(ed->publicEnv, fact);
 
 	if (deathmatch->value || coop->value)
 	{
@@ -560,7 +574,6 @@ G_FreeEdict(edict_t *ed)
 			return;
 		}
 	}
-
 	memset(ed, 0, sizeof(*ed));
 	ed->classname = "freed";
 	ed->freetime = level.time;

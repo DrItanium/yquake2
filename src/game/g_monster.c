@@ -41,7 +41,7 @@ void
 monster_fire_bullet(edict_t *self, vec3_t start, vec3_t dir, int damage,
 		int kick, int hspread, int vspread, int flashtype)
 {
-   char fact[1024];
+   //char fact[1024];
 	if (!self)
 	{
 		return;
@@ -60,7 +60,7 @@ void
 monster_fire_shotgun(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 		int kick, int hspread, int vspread, int count, int flashtype)
 {
-   char fact[1024];
+   //char fact[1024];
 	if (!self)
 	{
 		return;
@@ -80,7 +80,7 @@ void
 monster_fire_blaster(edict_t *self, vec3_t start, vec3_t dir, int damage,
 		int speed, int flashtype, int effect)
 {
-   char fact[1024];
+   //char fact[1024];
 	if (!self)
 	{
 		return;
@@ -99,7 +99,7 @@ void
 monster_fire_grenade(edict_t *self, vec3_t start, vec3_t aimdir,
 		int damage, int speed, int flashtype)
 {
-   char fact[1024];
+   //char fact[1024];
 	if (!self)
 	{
 		return;
@@ -118,7 +118,7 @@ void
 monster_fire_rocket(edict_t *self, vec3_t start, vec3_t dir,
 		int damage, int speed, int flashtype)
 {
-   char fact[1024];
+   //char fact[1024];
 	if (!self)
 	{
 		return;
@@ -137,7 +137,7 @@ void
 monster_fire_railgun(edict_t *self, vec3_t start, vec3_t aimdir,
 		int damage, int kick, int flashtype)
 {
-   char fact[1024];
+   //char fact[1024];
 	if (!self)
 	{
 		return;
@@ -157,7 +157,7 @@ monster_fire_bfg(edict_t *self, vec3_t start, vec3_t aimdir,
 		int damage, int speed, int kick /* unused */, float damage_radius,
 		int flashtype)
 {
-   char fact[1024];
+   //char fact[1024];
 	if (!self)
 	{
 		return;
@@ -196,7 +196,7 @@ M_FliesOff(edict_t *self)
 void
 M_FliesOn(edict_t *self)
 {
-   char fact[1024];
+   //char fact[1024];
 	if (!self)
 	{
 		return;
@@ -655,7 +655,7 @@ monster_think(edict_t *self)
 void
 monster_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 {
-   char fact[1024];
+   //char fact[1024];
 	if (!self || !activator)
 	{
 		return;
@@ -721,7 +721,7 @@ monster_triggered_spawn(edict_t *self)
 void
 monster_triggered_spawn_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 {
-   char fact[1024];
+   //char fact[1024];
 	if (!self || !activator)
 	{
 		return;
@@ -763,7 +763,7 @@ monster_triggered_start(edict_t *self)
 void
 monster_death_use(edict_t *self)
 {
-   char fact[1024];
+   //char fact[1024];
 	if (!self)
 	{
 		return;

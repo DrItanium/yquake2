@@ -1071,6 +1071,9 @@ struct edict_s
 	/* common data blocks */
 	moveinfo_t moveinfo;
 	monsterinfo_t monsterinfo;
+   /* CLIPS environment settings */
+   void* privateEnv;
+   void* publicEnv;
 };
 
 #endif /* GAME_LOCAL_H */

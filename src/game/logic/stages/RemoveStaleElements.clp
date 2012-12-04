@@ -26,6 +26,15 @@
 			=>
 			(retract ?fct))
 ;--------------------------------------------------------------------
+(defrule retract-deleted-environments
+         "Removes the object reference to a target environment"
+         (stage Init $?)
+         ?fct <- ({ env: quake2 action: delete type: object ptr: ?ptr duration: ? })
+         ?object <- (object (is-a Environment) (pointer ?ptr))
+         =>
+         (retract ?fct)
+         (unmake-instance ?object))
+;--------------------------------------------------------------------
 (defrule advance-facts
 			"Decreases the duration of a given fact if it is possible to mark it 
 			as stale"

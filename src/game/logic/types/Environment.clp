@@ -17,12 +17,11 @@
 ;Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 ;02111-1307, USA.
 ;--------------------------------------------------------------------
-; Loader for types 
+; CLIPS representation of the C representation of a CLIPS environment
 ;--------------------------------------------------------------------
-(progn 
- ;make sure that QEntity.clp is first
- (batch* "expert/logic/types/QEntity.clp")
- (batch* "expert/logic/types/Environment.clp")
- (batch* "expert/logic/types/Monster.clp")
- (batch* "expert/logic/types/QEdict.clp"))
+(defclass Environment (is-a USER)
+ (slot id (type SYMBOL))
+ (slot pointer (type INTEGER)))
 
+(defmessage-handler Environment init after ()
+ (bind ?self:id (instance-name-to-symbol (instance-name ?self))))

@@ -643,6 +643,12 @@ monster_think(edict_t *self)
  * Using a monster makes it angry
  * at the current activator
  */
+#define AssertAngryAt(container, target, enemy, tclass, eclass, duration) \
+   Com_sprintf(container, sizeof(container),  \
+         "({ env: quake2 action: anger target: %d enemy: %d target-classname: %s enemy-classname: %s duration: %d })", \
+         target, enemy, tclass, eclass, duration); \
+AssertString(container)
+
 void
 monster_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 {
@@ -674,8 +680,7 @@ monster_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 
 	/* delay reaction so if the monster is
 	   teleported, its sound is still heard */
-   Com_sprintf(fact, sizeof(fact), "({ env: quake2 action: anger target: %d enemy: %d target-classname: %s enemy-classname: %s })", self, activator, self->classname, activator->classname); 
-   AssertString(fact);
+   AssertAngryAt(fact, self, activator, self->classname, activator->classname, -1); 
 	self->enemy = activator;
 	FoundTarget(self);
 }
@@ -713,6 +718,7 @@ monster_triggered_spawn(edict_t *self)
 void
 monster_triggered_spawn_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 {
+   char fact[1024];
 	if (!self || !activator)
 	{
 		return;
@@ -729,6 +735,7 @@ monster_triggered_spawn_use(edict_t *self, edict_t *other /* unused */, edict_t 
 	}
 
 	self->use = monster_use;
+   AssertAngryAt(fact, self, activator, self->classname, activator->classname, -1); 
 }
 
 void
@@ -1090,3 +1097,4 @@ swimmonster_start(edict_t *self)
 
 #undef AssertFireFact
 #undef AssertFlyConsumption
+#undef AssertAngryAt

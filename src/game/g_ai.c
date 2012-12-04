@@ -25,6 +25,7 @@
  */
 
 #include "header/local.h"
+#include "clips/clips.h"
 
 extern cvar_t *maxclients;
 
@@ -87,19 +88,22 @@ AI_SetSightClient(void)
 		}
 	}
 }
-
 /*
  * Move the specified distance at current facing.
  */
 void
 ai_move(edict_t *self, float dist)
 {
+   char fact[1024];
 	if (!self)
 	{
 		return;
 	}
-
 	M_walkmove(self, self->s.angles[YAW], dist);
+   Com_sprintf(fact, sizeof(fact), 
+         "({ env: quake2 action: move target: %d direction: %d distance: %f duration: 1 })",
+         self, self->s.angles[YAW], dist);
+   AssertString(fact);
 }
 
 /*
@@ -182,13 +186,17 @@ ai_stand(edict_t *self, float dist)
 void
 ai_walk(edict_t *self, float dist)
 {
+   char fact[1024];
 	if (!self)
 	{
 		return;
 	}
 
 	M_MoveToGoal(self, dist);
-
+   Com_sprintf(fact, sizeof(fact), 
+         "({ env: quake2 action: walk target: %d distance: %f duration: %d })",
+         self, dist, 1);
+   AssertString(fact);
 	/* check for noticing a player */
 	if (FindTarget(self))
 	{
@@ -218,6 +226,7 @@ void
 ai_charge(edict_t *self, float dist)
 {
 	vec3_t v;
+   char fact[1024];
 
 	if (!self)
 	{
@@ -227,6 +236,10 @@ ai_charge(edict_t *self, float dist)
 	VectorSubtract(self->enemy->s.origin, self->s.origin, v);
 	self->ideal_yaw = vectoyaw(v);
 	M_ChangeYaw(self);
+   Com_sprintf(fact, sizeof(fact), 
+         "({ env: quake2 action: charge target: %d duration: %d })",
+         self, 1);
+   AssertString(fact);
 
 	if (dist)
 	{
@@ -243,6 +256,7 @@ ai_charge(edict_t *self, float dist)
 void
 ai_turn(edict_t *self, float dist)
 {
+   char fact[1024];
 	if (!self)
 	{
 		return;
@@ -259,6 +273,10 @@ ai_turn(edict_t *self, float dist)
 	}
 
 	M_ChangeYaw(self);
+   Com_sprintf(fact, sizeof(fact), 
+         "({ env: quake2 action: turn target: %d duration: %d })",
+         self, 1);
+   AssertString(fact);
 }
 
 /* ============================================================================ */

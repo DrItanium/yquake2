@@ -1554,6 +1554,9 @@ SP_monster_soldier_x(edict_t *self)
 	self->movetype = MOVETYPE_STEP;
 	self->solid = SOLID_BBOX;
 
+   /* TODO: Make it so that objects are created through fact assertion.
+    * That makes it really easy to create without having to worry about
+    * information being out of date or anything like that */
 	sound_idle = gi.soundindex("soldier/solidle1.wav");
 	sound_sight1 = gi.soundindex("soldier/solsght1.wav");
 	sound_sight2 = gi.soundindex("soldier/solsrch1.wav");
@@ -1582,8 +1585,9 @@ SP_monster_soldier_x(edict_t *self)
    self->privateEnv = CreateEnvironment();
    self->publicEnv = game.rhizome;
    EnvBatchStar(self->privateEnv, "expert/logic/Init.clp");
-   Com_sprintf(instance, sizeof(instance), "( of Environment (pointer %llu))",
-         self->privateEnv);
+   Com_sprintf(instance, sizeof(instance), "( of Environment (pointer %llu) (target %llu))",
+         self->privateEnv, self);
+
    EnvMakeInstance(self->privateEnv, instance);
    EnvMakeInstance(self->publicEnv, instance);
 }
@@ -1616,7 +1620,13 @@ SP_monster_soldier_light(edict_t *self)
 	self->s.skinnum = 0;
 	self->health = 20;
 	self->gib_health = -30;
-      
+
+   char monsterInstance[2048];
+   Com_sprintf(monsterInstance, sizeof(monsterInstance), 
+         "( of QEdict (pointer %llu) (health 20) (gib-health -30) (max-health 20))",
+         self);
+   EnvMakeInstance(self->privateEnv, monsterInstance);
+   EnvMakeInstance(self->publicEnv, monsterInstance);
 }
 
 /*

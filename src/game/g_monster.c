@@ -26,16 +26,16 @@
 
 #include "header/local.h"
 #include "clips/clips.h"
-#include "header/stimuli.h"
+//#include "header/stimuli.h"
 
 void monster_start_go(edict_t *self);
 
 /* Monster weapons */
-#define AssertFireFact(container, type, from, class, duration) \
-   Com_sprintf(container, sizeof(container), \
-         "({ env: quake2 action: fire type: %s from: %d class: %s duration: %d })", \
-         type, from, class, duration); \
-   AssertString(container)
+//#define AssertFireFact(container, type, from, class, duration) \
+//   Com_sprintf(container, sizeof(container), \
+//         "({ env: quake2 action: fire type: %s from: %d class: %s duration: %d })", \
+//         type, from, class, duration); \
+//   AssertString(container)
 
 void
 monster_fire_bullet(edict_t *self, vec3_t start, vec3_t dir, int damage,
@@ -53,7 +53,7 @@ monster_fire_bullet(edict_t *self, vec3_t start, vec3_t dir, int damage,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   AssertFireFact(fact, "bullet", self, self->classname, 15);
+   //AssertFireFact(fact, "bullet", self, self->classname, 15);
 }
 
 void
@@ -73,7 +73,7 @@ monster_fire_shotgun(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   AssertFireFact(fact, "shotgun", self, self->classname, 15);
+   //AssertFireFact(fact, "shotgun", self, self->classname, 15);
 }
 
 void
@@ -92,7 +92,7 @@ monster_fire_blaster(edict_t *self, vec3_t start, vec3_t dir, int damage,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   AssertFireFact(fact, "blaster", self, self->classname, 15);
+   //AssertFireFact(fact, "blaster", self, self->classname, 15);
 }
 
 void
@@ -111,7 +111,7 @@ monster_fire_grenade(edict_t *self, vec3_t start, vec3_t aimdir,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   AssertFireFact(fact, "grenade", self, self->classname, 15);
+   //AssertFireFact(fact, "grenade", self, self->classname, 15);
 }
 
 void
@@ -130,7 +130,7 @@ monster_fire_rocket(edict_t *self, vec3_t start, vec3_t dir,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   AssertFireFact(fact, "rocket", self, self->classname, 15);
+   //AssertFireFact(fact, "rocket", self, self->classname, 15);
 }
 
 void
@@ -149,7 +149,7 @@ monster_fire_railgun(edict_t *self, vec3_t start, vec3_t aimdir,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   AssertFireFact(fact, "railgun", self, self->classname, 15);
+   //AssertFireFact(fact, "railgun", self, self->classname, 15);
 }
 
 void
@@ -169,17 +169,17 @@ monster_fire_bfg(edict_t *self, vec3_t start, vec3_t aimdir,
 	gi.WriteShort(self - g_edicts);
 	gi.WriteByte(flashtype);
 	gi.multicast(start, MULTICAST_PVS);
-   AssertFireFact(fact, "bfg", self, self->classname, 15);
+   //AssertFireFact(fact, "bfg", self, self->classname, 15);
 }
 
 /* ================================================================== */
 
 /* Monster utility functions */
-#define AssertFlyConsumption(container, target, class, duration) \
-   Com_sprintf(container, sizeof(container), \
-         "({ env: quake2 action: fly-consumption target: %d class: %s duration: %d })", \
-         target, class, duration); \
-   AssertString(container);
+//#define AssertFlyConsumption(container, target, class, duration) \
+//   Com_sprintf(container, sizeof(container), \
+//         "({ env: quake2 action: fly-consumption target: %d class: %s duration: %d })", \
+//         target, class, duration); \
+//   AssertString(container);
 
 void
 M_FliesOff(edict_t *self)
@@ -211,7 +211,7 @@ M_FliesOn(edict_t *self)
 	self->s.sound = gi.soundindex("infantry/inflies1.wav");
 	self->think = M_FliesOff;
 	self->nextthink = level.time + 60;
-   AssertFlyConsumption(fact, self, self->classname, 60);
+   //AssertFlyConsumption(fact, self, self->classname, 60);
 }
 
 void
@@ -643,11 +643,11 @@ monster_think(edict_t *self)
  * Using a monster makes it angry
  * at the current activator
  */
-#define AssertAngryAt(container, target, enemy, tclass, eclass, duration) \
-   Com_sprintf(container, sizeof(container),  \
-         "({ env: quake2 action: anger target: %d enemy: %d target-classname: %s enemy-classname: %s duration: %d })", \
-         target, enemy, tclass, eclass, duration); \
-AssertString(container)
+//#define AssertAngryAt(container, target, enemy, tclass, eclass, duration) \
+//   Com_sprintf(container, sizeof(container),  \
+//         "({ env: quake2 action: anger target: %d enemy: %d target-classname: %s enemy-classname: %s duration: %d })", \
+//         target, enemy, tclass, eclass, duration); \
+//AssertString(container)
 
 void
 monster_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
@@ -680,7 +680,7 @@ monster_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 
 	/* delay reaction so if the monster is
 	   teleported, its sound is still heard */
-   AssertAngryAt(fact, self, activator, self->classname, activator->classname, -1); 
+   //AssertAngryAt(fact, self, activator, self->classname, activator->classname, -1); 
 	self->enemy = activator;
 	FoundTarget(self);
 }
@@ -735,7 +735,7 @@ monster_triggered_spawn_use(edict_t *self, edict_t *other /* unused */, edict_t 
 	}
 
 	self->use = monster_use;
-   AssertAngryAt(fact, self, activator, self->classname, activator->classname, -1); 
+   //AssertAngryAt(fact, self, activator, self->classname, activator->classname, -1); 
 }
 
 void
@@ -779,10 +779,10 @@ monster_death_use(edict_t *self)
 	{
 		self->target = self->deathtarget;
 	}
-   Com_sprintf(fact, sizeof(fact), "({ env: quake2 action: death target: %d duration: 1 })", self);
-   AssertString(fact);
-   Com_sprintf(fact, sizeof(fact), "({ env: quake2 action: inform-others of: { action: death target: %d } duration: 1 })", self);
-   AssertString(fact);
+   //Com_sprintf(fact, sizeof(fact), "({ env: quake2 action: death target: %d duration: 1 })", self);
+   //AssertString(fact);
+   //Com_sprintf(fact, sizeof(fact), "({ env: quake2 action: inform-others of: { action: death target: %d } duration: 1 })", self);
+   //AssertString(fact);
 	if (!self->target)
 	{
 		return;
@@ -1099,6 +1099,6 @@ swimmonster_start(edict_t *self)
 	monster_start(self);
 }
 
-#undef AssertFireFact
-#undef AssertFlyConsumption
-#undef AssertAngryAt
+//#undef AssertFireFact
+//#undef AssertFlyConsumption
+//#undef AssertAngryAt

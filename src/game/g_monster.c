@@ -779,9 +779,9 @@ monster_death_use(edict_t *self)
 	{
 		self->target = self->deathtarget;
 	}
-   Com_sprintf(fact, sizeof(fact), "({ env: quake2 action: death target: %d duration: -1 })", self);
+   Com_sprintf(fact, sizeof(fact), "({ env: quake2 action: death target: %d duration: 1 })", self);
    AssertString(fact);
-   Com_sprintf(fact, sizeof(fact), "({ env: quake2 action: inform-others of: { action: death target: %d } duration: -1 })", self);
+   Com_sprintf(fact, sizeof(fact), "({ env: quake2 action: inform-others of: { action: death target: %d } duration: 1 })", self);
    AssertString(fact);
 	if (!self->target)
 	{

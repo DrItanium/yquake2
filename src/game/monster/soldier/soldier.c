@@ -1580,19 +1580,8 @@ SP_monster_soldier_x(edict_t *self)
 	self->monsterinfo.stand(self);
 
 	walkmonster_start(self);
-
-   char instance[512];
-   char instanceRhizome[512];
-   self->privateEnv = CreateEnvironment();
-   self->publicEnv = game.rhizome;
-   EnvBatchStar(self->privateEnv, "expert/logic/Init.clp");
-   Com_sprintf(instance, sizeof(instance), "( of Environment (pointer %llu) (target %llu))",
-         self->privateEnv, self);
-   Com_sprintf(instanceRhizome, sizeof(instanceRhizome), "(rhizome of Environment (pointer %llu))",
-         self->publicEnv);
-   EnvMakeInstance(self->privateEnv, instanceRhizome);
-   EnvMakeInstance(self->privateEnv, instance);
-   EnvMakeInstance(self->publicEnv, instance);
+   /* initialize the private environment */
+   SetupEnvironment(self);
 }
 
 /*
@@ -1623,13 +1612,7 @@ SP_monster_soldier_light(edict_t *self)
 	self->s.skinnum = 0;
 	self->health = 20;
 	self->gib_health = -30;
-
-   char monsterInstance[2048];
-   Com_sprintf(monsterInstance, sizeof(monsterInstance), 
-         "( of QEdict (pointer %llu) (health 20) (gib-health -30) (max-health 20))",
-         self);
-   EnvMakeInstance(self->privateEnv, monsterInstance);
-   EnvMakeInstance(self->publicEnv, monsterInstance);
+   CreateExpertSystemRepresentation(self, true); 
 }
 
 /*

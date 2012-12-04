@@ -21,7 +21,7 @@
 ;--------------------------------------------------------------------
 (defrule retract-stale-facts 
 			"Retracts facts that have a duration of 0"
-			(Stage Stale $?)
+			(stage Stale $?)
 			?fct <- ({ env: quake2 $? duration: 0 })
 			=>
 			(retract ?fct))
@@ -29,7 +29,7 @@
 (defrule advance-facts
 			"Decreases the duration of a given fact if it is possible to mark it 
 			as stale"
-			(Stage Advance $?)
+			(stage Advance $?)
 			?fct <- ({ env: quake2 
 						  $?contents 
 						  duration: ?d&:(and (numberp ?d) (> ?d 0)) 

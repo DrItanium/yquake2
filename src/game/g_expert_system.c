@@ -27,6 +27,12 @@
 #include "header/local.h"
 #include "clips/clips.h"
 
+game_locals_t game;
+level_locals_t level;
+game_import_t gi;
+game_export_t globals;
+spawn_temp_t st;
+
 void
 Cmd_Ex_Eval_f(edict_t *ent) {
    int max;
@@ -47,7 +53,7 @@ Cmd_Ex_Eval_f(edict_t *ent) {
          name[max - 1] = ' ';
       }
    }
-   if(Eval(name, &obj) == 0) {
+   if(EnvEval(game.rhizome, name, &obj) == 0) {
       gi.dprintf("ERROR! Evaluating %s failed\n", name);
       return;
    } else {
@@ -95,7 +101,7 @@ Cmd_Ex_Build_f(edict_t *ent) {
          name[max - 1] = ' ';
       }
    }
-   if(Build(name) == 0) {
+   if(EnvBuild(game.rhizome, name) == 0) {
       gi.dprintf("ERROR! Building %s failed\n", name);
    } 
 }
@@ -106,13 +112,13 @@ Cmd_Ex_Run_f(edict_t *ent) {
    int result;
    name = gi.args();
    if(strlen(name) == 0) {
-      Run(-1L);
+      EnvRun(game.rhizome, -1L);
    } else {
       result = atoi(name); 
       if(result <= 0) {
-         Run(-1L);
+         EnvRun(game.rhizome, -1L);
       } else {
-         Run(result);
+         EnvRun(game.rhizome, result);
       }
    }
 }
@@ -134,7 +140,7 @@ Cmd_Ex_Batch_f(edict_t *ent) {
    if(max == 0) {
       gi.dprintf("A file is needed for this to load properly\n");
       return;
-   } else if(BatchStar(name) == 0) {
+   } else if(EnvBatchStar(game.rhizome, name) == 0) {
       gi.dprintf("ERROR! Couldn't batch %s \n", name);
    } 
 }

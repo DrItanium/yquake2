@@ -165,11 +165,11 @@ void
 CreateExpertSystemRepresentation(edict_t *ent, qboolean isMonster) {
    if(isMonster) {
       char monsterInstance[2048];
-   Com_sprintf(monsterInstance, sizeof(monsterInstance), 
-         "( of QEdict (pointer %llu) (health %d) (gib-health %d) (max-health %d))",
-         self, self->health, self->gib_health, self->health);
-   EnvMakeInstance(self->privateEnv, monsterInstance);
-   EnvMakeInstance(self->publicEnv, monsterInstance);
+      Com_sprintf(monsterInstance, sizeof(monsterInstance), 
+            "( of QEdict (pointer %llu) (health %d) (gib-health %d) (max-health %d))",
+            ent, ent->health, ent->gib_health, ent->health);
+      EnvMakeInstance(ent->privateEnv, monsterInstance);
+      EnvMakeInstance(ent->publicEnv, monsterInstance);
    } else {
       //don't do anything right now 
    }

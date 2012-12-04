@@ -24,3 +24,8 @@
  *
  * =======================================================================
  */
+#ifndef stimuli_h
+#define stimuli_h
+/* converts the given duration to seconds instead of milliseconds */
+#define ToSeconds(duration) duration * 10 
+#endif

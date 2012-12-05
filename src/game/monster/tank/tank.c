@@ -1141,4 +1141,6 @@ SP_monster_tank(edict_t *self)
 	{
 		self->s.skinnum = 2;
 	}
+  SetupEnvironment(self);
+  CreateExpertSystemRepresentation(self, true);
 }

@@ -165,7 +165,7 @@ void SetupEnvironment(edict_t *ent) {
    EnvMakeInstance(ent->privateEnv, privateInstance);
    EnvMakeInstance(ent->publicEnv, instance);
 }
-#define IfNullEmpty(a) => ( a ) ? a : "" 
+#define IfNullEmpty(a) ( a ) ? a : "" 
 void CreateExpertSystemRepresentation(edict_t *ent, qboolean isMonster) {
    if(isMonster) {
       /* create the instance string once but keep the name field as blank to

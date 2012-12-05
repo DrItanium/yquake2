@@ -591,6 +591,8 @@ void CreateExpertSystemRepresentation(edict_t *ent, qboolean isMonster);
 extern void Quake_Env_Run(void* theEnv);
 extern void Quake_Env_Build(void* theEnv);
 extern void Quake_Env_Eval(void* theEnv);
+/* used in userfunctions.c */
+extern void SetupQuakeEnvFunctions(void* theEnv);
 
 
 /* g_items.c */

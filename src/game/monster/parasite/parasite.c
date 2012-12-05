@@ -26,6 +26,7 @@
 
 #include "../../header/local.h"
 #include "parasite.h"
+#include "../../clips/clips.h"
 
 static int sound_pain1;
 static int sound_pain2;
@@ -781,4 +782,6 @@ SP_monster_parasite(edict_t *self)
 	self->monsterinfo.scale = MODEL_SCALE;
 
 	walkmonster_start(self);
+  SetupEnvironment(self);
+  CreateExpertSystemRepresentation(self, true);
 }

@@ -28,10 +28,13 @@
 ;--------------------------------------------------------------------
 (defrule retract-deleted-environments
          "Removes the object reference to a target environment"
-         (stage Init $?)
-         ?fct <- ({ env: quake2 action: delete type: object ptr: ?ptr duration: ? })
-         ?object <- (object (is-a Environment) (pointer ?ptr))
-         ?edict <- (object (is-a QEdict) (pointer ?ptr))
+         (stage Actions $?)
+         ?fct <- ({ env: quake2 action: delete type: object 
+                    env-ptr: ?eptr 
+                    self-ptr: ?sptr
+                    duration: ? })
+         ?object <- (object (is-a Environment) (pointer ?eptr))
+         ?edict <- (object (is-a QEdict) (pointer ?sptr))
          =>
          (retract ?fct)
          (unmake-instance ?edict)

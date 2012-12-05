@@ -31,8 +31,10 @@
          (stage Init $?)
          ?fct <- ({ env: quake2 action: delete type: object ptr: ?ptr duration: ? })
          ?object <- (object (is-a Environment) (pointer ?ptr))
+         ?edict <- (object (is-a QEdict) (pointer ?ptr))
          =>
          (retract ?fct)
+         (unmake-instance ?edict)
          (unmake-instance ?object))
 ;--------------------------------------------------------------------
 (defrule advance-facts

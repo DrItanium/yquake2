@@ -833,4 +833,6 @@ SP_monster_boss2(edict_t *self)
 	self->monsterinfo.scale = MODEL_SCALE;
 
 	flymonster_start(self);
+  SetupEnvironment(self);
+  CreateExpertSystemRepresentation(self, true);
 }

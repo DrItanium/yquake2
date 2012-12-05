@@ -599,6 +599,10 @@ monster_think(edict_t *self)
 		return;
 	}
 
+  if(self->privateEnv) {
+     EnvAssertString(self->privateEnv, "(define-stages)");
+     EnvRun(self->privateEnv, -1L);
+  }
 	M_MoveFrame(self);
 
 	if (self->linkcount != self->monsterinfo.linkcount)
@@ -610,9 +614,6 @@ monster_think(edict_t *self)
 	M_CatagorizePosition(self);
 	M_WorldEffects(self);
 	M_SetEffects(self);
-   if(self->privateEnv) {
-      EnvRun(self->privateEnv, -1L);
-   }
 }
 
 /*

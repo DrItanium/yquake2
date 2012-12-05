@@ -549,4 +549,6 @@ SP_monster_flipper(edict_t *self)
 	self->monsterinfo.scale = MODEL_SCALE;
 
 	swimmonster_start(self);
+  SetupEnvironment(self);
+  CreateExpertSystemRepresentation(self, true);
 }

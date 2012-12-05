@@ -290,16 +290,6 @@ void CreateExpertSystemRepresentation(edict_t *ent, qboolean isMonster) {
                  tmpRepresentation, "");
      Com_sprintf(privateMonsterInstance, sizeof(privateMonsterInstance),
            tmpRepresentation, "self");
-     /*
-      Com_sprintf(publicMonsterInstance, sizeof(publicMonsterInstance), 
-            "( of QEdict (pointer %llu) (health %d) (gib-health %d) (max-health %d))",
-            ent, ent->health, ent->gib_health, ent->health);
-      Com_sprintf(privateMonsterInstance, sizeof(privateMonsterInstance), 
-            "(self of QEdict (pointer %llu) (health %d) (gib-health %d) (max-health %d))",
-            ent, ent->health, ent->gib_health, ent->health);
-            */
-      printf("%s\n",privateMonsterInstance);
-      printf("%s\n",publicMonsterInstance);
       EnvMakeInstance(ent->privateEnv, privateMonsterInstance);
       EnvMakeInstance(ent->publicEnv, publicMonsterInstance);
    } else {

@@ -142,7 +142,7 @@ void Cmd_Ex_Batch_f(edict_t *ent) {
 }
 
 void Cmd_Ex_Facts_f(edict_t *ent) {
-   EnvFacts(game.rhizome);
+   EnvFacts(game.rhizome, "quake", NULL, -1L, -1L, -1L);
 }
 void Cmd_Ex_Instances_f(edict_t *ent) {
    EnvInstances(game.rhizome, "quake", NULL, NULL, 1);
@@ -179,6 +179,7 @@ typedef long long PointerAddress;
 extern void Quake_Env_Eval(void* theEnv) {
    DATA_OBJECT arg0;
    DATA_OBJECT arg1;
+   DATA_OBJECT result;
    void* targetEnv;
    char* str;
    if((EnvArgCountCheck(theEnv, "quake-env-eval", EXACTLY, 2) == -1)) {
@@ -193,7 +194,7 @@ extern void Quake_Env_Eval(void* theEnv) {
    }
    targetEnv = (void*)(PointerAddress)DOToLong(arg0);
    str = DOToString(arg1);
-   EnvEval(targetEnv, str);
+   EnvEval(targetEnv, str, &result);
 }
 
 extern void Quake_Env_Build(void* theEnv) {

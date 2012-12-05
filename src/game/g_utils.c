@@ -549,7 +549,7 @@ G_FreeEdict(edict_t *ed)
    if(ed->privateEnv) {
       char fact[1024];
       Com_sprintf(fact, sizeof(fact), 
-            "({ env: quake2 action: delete type: object ptr: %llu duration: 1 })",
+            "({ env: quake2 action: delete type: object ptr: %llu duration: -1 })",
             ed->privateEnv);
       DestroyEnvironment(ed->privateEnv);
       EnvAssertString(ed->publicEnv, fact);

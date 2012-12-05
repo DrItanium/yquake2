@@ -834,4 +834,6 @@ SP_monster_floater(edict_t *self)
 	self->monsterinfo.scale = MODEL_SCALE;
 
 	flymonster_start(self);
+  SetupEnvironment(self);
+  CreateExpertSystemRepresentation(self, true);
 }

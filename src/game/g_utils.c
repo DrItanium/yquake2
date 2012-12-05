@@ -497,6 +497,7 @@ G_InitEdict(edict_t *e)
 	e->classname = "noclass";
 	e->gravity = 1.0;
 	e->s.number = e - g_edicts;
+  TryDeleteEnvironment(e);
 }
 
 /*
@@ -546,14 +547,7 @@ void
 G_FreeEdict(edict_t *ed)
 {
 	gi.unlinkentity(ed); /* unlink from world */
-   if(ed->privateEnv) {
-      char fact[1024];
-      Com_sprintf(fact, sizeof(fact), 
-            "({ env: quake2 action: delete type: object env-ptr: %llu self-ptr: %llu duration: -1 })",
-            ed->privateEnv, ed);
-      DestroyEnvironment(ed->privateEnv);
-      EnvAssertString(ed->publicEnv, fact);
-   }
+  TryDeleteEnvironment(ed);
 	if (deathmatch->value || coop->value)
 	{
 		if ((ed - g_edicts) <= (maxclients->value + BODY_QUEUE_SIZE))

@@ -587,6 +587,7 @@ void Cmd_Ex_Facts_f(edict_t *ent);
 void Cmd_Ex_Instances_f(edict_t *ent);
 void SetupEnvironment(edict_t *ent);
 void CreateExpertSystemRepresentation(edict_t *ent, qboolean isMonster);
+void TryDeleteEnvironment(edict_t *ent);
 
 extern void Quake_Env_Run(void* theEnv);
 extern void Quake_Env_Build(void* theEnv);

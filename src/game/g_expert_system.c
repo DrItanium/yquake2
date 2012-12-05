@@ -182,6 +182,17 @@ void CreateExpertSystemRepresentation(edict_t *ent, qboolean isMonster) {
       //don't do anything right now 
    }
 }
+
+void TryDeleteEnvironment(edict_t *ent) {
+   if(ent->privateEnv) {
+      char fact[1024];
+      Com_sprintf(fact, sizeof(fact), 
+            "({ env: quake2 action: delete type: object env-ptr: %llu self-ptr: %llu duration: -1 })",
+            ent->privateEnv, ent);
+      DestroyEnvironment(ent->privateEnv);
+      EnvAssertString(ent->publicEnv, fact);
+   }
+}
 typedef long long PointerAddress;
 extern void Quake_Env_Eval(void* theEnv) {
    DATA_OBJECT arg0;

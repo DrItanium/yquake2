@@ -150,27 +150,34 @@ void Cmd_Ex_Instances_f(edict_t *ent) {
 
 void SetupEnvironment(edict_t *ent) {
    char instance[512];
+   char privateInstance[512];
    char instanceRhizome[512];
    ent->privateEnv = CreateEnvironment();
    ent->publicEnv = game.rhizome;
    EnvBatchStar(ent->privateEnv, "expert/logic/Init.clp");
    Com_sprintf(instance, sizeof(instance), "( of Environment (pointer %llu) (target %llu))",
          ent->privateEnv, ent);
+   Com_sprintf(privateInstance, sizeof(privateInstance), "(env of Environment (pointer %llu) (target %llu))",
+         ent->privateEnv, ent);
    Com_sprintf(instanceRhizome, sizeof(instanceRhizome), "(rhizome of Environment (pointer %llu))",
          ent->publicEnv);
    EnvMakeInstance(ent->privateEnv, instanceRhizome);
-   EnvMakeInstance(ent->privateEnv, instance);
+   EnvMakeInstance(ent->privateEnv, privateInstance);
    EnvMakeInstance(ent->publicEnv, instance);
 }
 
 void CreateExpertSystemRepresentation(edict_t *ent, qboolean isMonster) {
    if(isMonster) {
-      char monsterInstance[2048];
-      Com_sprintf(monsterInstance, sizeof(monsterInstance), 
+      char privateMonsterInstance[2048];
+      char publicMonsterInstance[2048];
+      Com_sprintf(publicMonsterInstance, sizeof(publicMonsterInstance), 
             "( of QEdict (pointer %llu) (health %d) (gib-health %d) (max-health %d))",
             ent, ent->health, ent->gib_health, ent->health);
-      EnvMakeInstance(ent->privateEnv, monsterInstance);
-      EnvMakeInstance(ent->publicEnv, monsterInstance);
+      Com_sprintf(privateMonsterInstance, sizeof(privateMonsterInstance), 
+            "(self of QEdict (pointer %llu) (health %d) (gib-health %d) (max-health %d))",
+            ent, ent->health, ent->gib_health, ent->health);
+      EnvMakeInstance(ent->privateEnv, privateMonsterInstance);
+      EnvMakeInstance(ent->publicEnv, publicMonsterInstance);
    } else {
       //don't do anything right now 
    }

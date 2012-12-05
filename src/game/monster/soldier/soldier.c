@@ -1641,6 +1641,7 @@ SP_monster_soldier(edict_t *self)
 	self->s.skinnum = 2;
 	self->health = 30;
 	self->gib_health = -30;
+   CreateExpertSystemRepresentation(self, true); 
 }
 
 /*
@@ -1669,4 +1670,5 @@ SP_monster_soldier_ss(edict_t *self)
 	self->s.skinnum = 4;
 	self->health = 40;
 	self->gib_health = -30;
+  CreateExpertSystemRepresentation(self, true);
 }

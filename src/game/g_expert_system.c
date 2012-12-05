@@ -33,8 +33,7 @@ game_import_t gi;
 game_export_t globals;
 spawn_temp_t st;
 
-void
-Cmd_Ex_Eval_f(edict_t *ent) {
+void Cmd_Ex_Eval_f(edict_t *ent) {
    int max;
    char* name;
    char* tmpStr;
@@ -87,8 +86,7 @@ Cmd_Ex_Eval_f(edict_t *ent) {
       }
    }
 }
-void
-Cmd_Ex_Build_f(edict_t *ent) {
+void Cmd_Ex_Build_f(edict_t *ent) {
    int max;
    char *name;
    name = gi.args();
@@ -106,8 +104,7 @@ Cmd_Ex_Build_f(edict_t *ent) {
    } 
 }
 
-void
-Cmd_Ex_Run_f(edict_t *ent) {
+void Cmd_Ex_Run_f(edict_t *ent) {
    char *name;
    int result;
    name = gi.args();
@@ -123,8 +120,7 @@ Cmd_Ex_Run_f(edict_t *ent) {
    }
 }
 
-void
-Cmd_Ex_Batch_f(edict_t *ent) {
+void Cmd_Ex_Batch_f(edict_t *ent) {
    int max;
    char* name;
    name = gi.args();
@@ -145,8 +141,14 @@ Cmd_Ex_Batch_f(edict_t *ent) {
    } 
 }
 
-void
-SetupEnvironment(edict_t *ent) {
+void Cmd_Ex_Facts_f(edict_t *ent) {
+   EnvFacts(game.rhizome);
+}
+void Cmd_Ex_Instances_f(edict_t *ent) {
+   EnvInstances(game.rhizome, "quake", NULL, NULL, 1);
+}
+
+void SetupEnvironment(edict_t *ent) {
    char instance[512];
    char instanceRhizome[512];
    ent->privateEnv = CreateEnvironment();
@@ -161,8 +163,7 @@ SetupEnvironment(edict_t *ent) {
    EnvMakeInstance(ent->publicEnv, instance);
 }
 
-void
-CreateExpertSystemRepresentation(edict_t *ent, qboolean isMonster) {
+void CreateExpertSystemRepresentation(edict_t *ent, qboolean isMonster) {
    if(isMonster) {
       char monsterInstance[2048];
       Com_sprintf(monsterInstance, sizeof(monsterInstance), 
@@ -174,3 +175,72 @@ CreateExpertSystemRepresentation(edict_t *ent, qboolean isMonster) {
       //don't do anything right now 
    }
 }
+typedef long long PointerAddress;
+extern void Quake_Env_Eval(void* theEnv) {
+   DATA_OBJECT arg0;
+   DATA_OBJECT arg1;
+   void* targetEnv;
+   char* str;
+   if((EnvArgCountCheck(theEnv, "quake-env-eval", EXACTLY, 2) == -1)) {
+      return;
+   } 
+   if((EnvArgTypeCheck(theEnv, "quake-env-eval", 1, INTEGER, &arg0) == 0)) {
+      return;
+   }
+
+   if((EnvArgTypeCheck(theEnv, "quake-env-eval", 2, STRING, &arg1) == 0)) {
+      return;
+   }
+   targetEnv = (void*)(PointerAddress)DOToLong(arg0);
+   str = DOToString(arg1);
+   EnvEval(targetEnv, str);
+}
+
+extern void Quake_Env_Build(void* theEnv) {
+   DATA_OBJECT arg0;
+   DATA_OBJECT arg1;
+   void* targetEnv;
+   char* str;
+   if((EnvArgCountCheck(theEnv, "quake-env-build", NO_MORE_THAN, 2) == -1)) {
+      return;
+   }  
+   if((EnvArgTypeCheck(theEnv, "quake-env-build", 1, INTEGER, &arg0) == 0)) {
+      return;
+   }
+   if((EnvArgTypeCheck(theEnv, "quake-env-build", 2, STRING, &arg1) == 0)) {
+      return;
+   }
+   targetEnv = (void*)(PointerAddress)DOToLong(arg0);
+   str = DOToString(arg1);
+   EnvBuild(targetEnv, str);
+}
+
+extern void Quake_Env_Run(void* theEnv) {
+   DATA_OBJECT arg0;
+   DATA_OBJECT arg1;
+   void* targetEnv;
+   PointerAddress duration;
+   if((EnvArgCountCheck(theEnv, "quake-env-run", NO_MORE_THAN, 2) == -1)) {
+      if((EnvArgCountCheck(theEnv, "quake-env-run", EXACTLY, 2) == -1)) {
+         if((EnvArgTypeCheck(theEnv, "quake-env-run", 1, INTEGER, &arg0) == 0)) {
+            return;
+         }
+
+         if((EnvArgTypeCheck(theEnv, "quake-env-run", 2, INTEGER, &arg1) == 0)) {
+            return;
+         }
+         targetEnv = (void*)(PointerAddress)DOToLong(arg0);
+         duration = (PointerAddress)DOToLong(arg1);
+         EnvRun(targetEnv, duration);
+      } else if((EnvArgCountCheck(theEnv, "quake-env-run", EXACTLY, 1) == -1)) {
+         if((EnvArgTypeCheck(theEnv, "quake-env-run", 1, INTEGER, &arg0) == 0)) {
+            return;
+         } 
+         targetEnv = (void*)(PointerAddress)DOToLong(arg0);
+         EnvRun(targetEnv, -1L);
+      }
+   } else {
+      return; 
+   }
+}
+

@@ -583,8 +583,14 @@ void Cmd_Ex_Eval_f(edict_t *ent);
 void Cmd_Ex_Build_f(edict_t *ent);
 void Cmd_Ex_Run_f(edict_t *ent);
 void Cmd_Ex_Batch_f(edict_t *ent);
+void Cmd_Ex_Facts_f(edict_t *ent);
+void Cmd_Ex_Instances_f(edict_t *ent);
 void SetupEnvironment(edict_t *ent);
 void CreateExpertSystemRepresentation(edict_t *ent, qboolean isMonster);
+
+extern void Quake_Env_Run(void* theEnv);
+extern void Quake_Env_Build(void* theEnv);
+extern void Quake_Env_Eval(void* theEnv);
 
 
 /* g_items.c */

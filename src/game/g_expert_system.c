@@ -248,6 +248,6 @@ extern void Quake_Env_Run(void* theEnv) {
 /* Add declarations of clips => quake2 functions here */
 extern void SetupQuakeEnvFunctions(void* theEnv) {
    EnvDefineFunction2(theEnv, "quake-env-run", 'v', PTIEF Quake_Env_Run, "Quake_Env_Run" , "12i");
-   EnvDefineFunction2(theEnv, "quake-env-build", 'v', PTIEF Quake_Env_Build, "Quake_Env_Build" , "22is");
-   EnvDefineFunction2(theEnv, "quake-env-eval", 'v', PTIEF Quake_Env_Eval, "Quake_Env_Eval" , "22is");
+   EnvDefineFunction2(theEnv, "quake-env-build", 'v', PTIEF Quake_Env_Build, "Quake_Env_Build" , "22iis");
+   EnvDefineFunction2(theEnv, "quake-env-eval", 'v', PTIEF Quake_Env_Eval, "Quake_Env_Eval" , "22iis");
 }

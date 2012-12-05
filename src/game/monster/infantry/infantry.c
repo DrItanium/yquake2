@@ -26,6 +26,7 @@
 
 #include "../../header/local.h"
 #include "infantry.h"
+#include "../../clips/clips.h"
 
 void InfantryMachineGun(edict_t *self);
 
@@ -827,4 +828,6 @@ SP_monster_infantry(edict_t *self)
 	self->monsterinfo.scale = MODEL_SCALE;
 
 	walkmonster_start(self);
+  SetupEnvironment(self);
+  CreateExpertSystemRepresentation(self, true);
 }

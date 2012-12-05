@@ -26,3 +26,37 @@
 
 (defmessage-handler Environment init after ()
  (bind ?self:id (instance-name-to-symbol (instance-name ?self))))
+
+(defmessage-handler Environment run ()
+ (quake-env-run ?self:pointer))
+
+(defmessage-handler Environment run-for (?count)
+ (if (and (>= ?count 0) (integerp ?count)) then
+ (quake-env-run ?self:pointer ?count)
+ else
+ (printout quake "ERROR: invalid number provided." crlf)))
+ 
+(defmessage-handler Environment eval (?string)
+ (if (stringp ?string) then
+  (quake-env-eval ?self:pointer ?string)
+  else
+  (printout quake "ERROR: string expected" crlf)))
+ 
+(defmessage-handler Environment build (?string)
+ (if (stringp ?string) then
+  (quake-env-build ?self:pointer ?string)
+  else
+  (printout quake "ERROR: string expected" crlf)))
+
+(defmessage-handler Environment facts ()
+ (quake-env-eval ?self:pointer "(facts)"))
+
+(defmessage-handler Environment instances ()
+ (quake-env-eval ?self:pointer "(instances)"))
+
+(defmessage-handler Environment rules ()
+ (quake-env-eval ?self:pointer "(rules)"))
+
+(defmessage-handler Environment assert ($?elements)
+ (quake-env-eval ?self:pointer 
+  (format nil "(assert (%s))" (implode$ $?elements))))

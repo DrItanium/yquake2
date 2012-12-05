@@ -96,4 +96,6 @@ SP_monster_boss3_stand(edict_t *self)
 	self->think = Think_Boss3Stand;
 	self->nextthink = level.time + FRAMETIME;
 	gi.linkentity(self);
+  SetupEnvironment(self);
+  CreateExpertSystemRepresentation(self, true);
 }

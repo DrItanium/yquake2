@@ -192,7 +192,7 @@ void CreateExpertSystemRepresentation(edict_t *ent, qboolean isMonster) {
             "(max-health %d) (gib-health %d) (is-dead FALSE) "
             "(power-armor-time %f) (map \"%s\") (view-height %d) "
             "(take-damage %d) (damage %d) (radius-damage %d) (damage-radius %f) (sounds %d) "
-            "(count %d) (chain %llu) (enemy %llu) (oldenemy %llu) "
+            "(count %d) (chain %llu) (enemy %llu) (old-enemy %llu) "
             "(activator %llu) (ground-entity %llu) (ground-entity-link-count %d) "
             "(team-chain %llu) (team-master %llu) (my-noise %llu) " 
             "(my-noise2 %llu) (noise-index %d) (noise-index2 %d) (volume %f) "
@@ -211,7 +211,7 @@ void CreateExpertSystemRepresentation(edict_t *ent, qboolean isMonster) {
          ent->spawnflags, 
          ent->timestamp, 
          ent->angle, 
-         ent->target, 
+         IfNullEmpty(ent->target), 
          IfNullEmpty(ent->targetname),
          IfNullEmpty(ent->killtarget), 
          IfNullEmpty(ent->team),

@@ -44,6 +44,7 @@
 #include "clips.h"
 #include "binary_operations.h"
 #include "quake2_interact.h"
+#include "../header/local.h"
 
 void UserFunctions(void);
 void EnvUserFunctions(void *);
@@ -81,5 +82,6 @@ void EnvUserFunctions(
 #endif
 	  BinaryOperationsFunctionDefinitions(theEnv);
      InitializeQuakeInterface(theEnv);
+     SetupQuakeEnvFunctions(theEnv);
   }
 

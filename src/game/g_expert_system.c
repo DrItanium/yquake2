@@ -168,23 +168,97 @@ void SetupEnvironment(edict_t *ent) {
 
 void CreateExpertSystemRepresentation(edict_t *ent, qboolean isMonster) {
    if(isMonster) {
+      /* create the instance string once but keep the name field as blank to
+       * allow it to be copied out as need be */
+      char tmpRepresentation[2048];
       char privateMonsterInstance[2048];
       char publicMonsterInstance[2048];
+      Com_sprintf(tmpRepresentation, sizeof(tmpRepresentation),
+            "(%s of QEdict (pointer %llu)"
+            "(move-type %u) (flags %u) (model \"%s\") (free-time %f)"
+            "(message \"%s\") (classname %s) (spawn-flags %u) (time-stamp %f)"
+            "(angle %f) (target %s) (target-name %s) (kill-target %s) (team %s)"
+            "(path-target %s) (death-target %s) (combat-target %s) "
+            "(target-entity %llu) (speed %f) (acceleration %f) "
+            "(deceleration %f) (move-direction %d %d %d) position1 %d %d %d) "
+            "(position2 %d %d %d) (velocity %d %d %d) (avelocity %d %d %d) "
+            "(mass %u) (air-finished %f) (gravity %d) (goal-entity %llu) "
+            "(move-target %llu) (yaw-speed %f) (ideal-yaw %f) (next-think %f) "
+            "(function-pre-think %llu) (function-think %llu) "
+            "(function-blocked %llu) (function-touched %llu) (function-use %llu)"
+            "(function-pain %llu) (function-die %llu) (touch-debounce-time %f) "
+            "(pain-debounce-time %f) (damage-debounce-time %f) "
+            "(fly-sound-debounce-time %f) (last-move-time %f) (health %d) "
+            "(max-health %d) (gib-health %d) (is-dead FALSE) "
+            "(power-armor-time %f) (map \"%s\") (view-height %d) "
+            "(take-damage %d) (damage %d) (radius-damage %d) (damage-radius %f) (sounds %d) "
+            "(count %d) (chain %llu) (enemy %llu) (oldenemy %llu) "
+            "(activator %llu) (ground-entity %llu) (ground-entity-link-count %d) "
+            "(team-chain %llu) (team-master %llu) (my-noise %llu) " 
+            "(my-noise2 %llu) (noise-index %d) (noise-index2 %d) (volume %f) "
+            "(attenuation %f) (wait %f) (delay %f) (random %f) " 
+            "(teleport-time %f) (water-type %d) (water-level %d) "
+            "(move-origin %d %d %d) (move-angles %d %d %d) (light-level %d) "
+            "(style %d) (item %llu) (move-info %llu) (monster-info %llu))", 
+         "%s", ent, ent->movetype, ent->flags, ent->model, ent->freetime,
+         ent->message, ent->classname, ent->spawnflags, ent->timestamp, 
+         ent->angle, ent->target, ent->targetname, ent->killtarget, ent->team,
+         ent->pathtarget, ent->deathtarget, ent->combattarget, ent->target_ent,
+         ent->speed, ent-> accel, ent->decel, 
+         ent->movedir[0], ent->movedir[1], ent->movedir[2],
+         ent->pos1[0], ent->pos1[1], ent->pos1[2],
+         ent->pos2[0], ent->pos2[1], ent->pos2[2],
+         ent->velocity[0], ent->velocity[1], ent->velocity[2],
+         ent->avelocity[0], ent->avelocity[1], ent->avelocity[2],
+         ent->mass, ent->air_finished, ent->gravity, ent->goalentity,
+         ent->movetarget, ent->yaw_speed, ent->ideal_yaw, ent->nextthink,
+         ent->prethink, ent->think, ent->blocked, ent->touch, ent->use, 
+         ent->pain, ent->die, ent->touch_debounce_time, ent->pain_debounce_time,
+         ent->damage_debounce_time, ent->fly_sound_debounce_time, ent->last_move_time,
+         ent->health, ent->max_health, ent->gib_health, ent->powerarmor_time,
+         ent->map, ent->viewheight, ent->takedamage, ent->dmg, ent->radius_dmg,
+         ent->dmg_radius, ent->sounds, ent->count, ent->chain, ent->enemy, 
+         ent->oldenemy, ent->activator, ent->groundentity, ent->groundentity_linkcount,
+         ent->teamchain, ent->teammaster, ent->mynoise, ent->mynoise2, 
+         ent->noise_index, ent->noise_index2, ent->volume, ent->attenuation,
+         ent->wait, ent->delay, ent->random, ent->teleport_time, ent->watertype,
+         ent->waterlevel, 
+         ent->move_origin[0], ent->move_origin[1], ent->move_origin[2],
+         ent->move_angles[0], ent->move_angles[1], ent->move_angles[2],
+         ent->light_level, ent->style, ent->item, ent->moveinfo, ent->monsterinfo);
+     Com_sprintf(publicMonsterInstance, sizeof(publicMonsterInstance), 
+                 tmpRepresentation, "");
+     Com_sprintf(privateMonsterInstance, sizeof(privateMonsterInstance),
+           tmpRepresentation, "self");
+     /*
       Com_sprintf(publicMonsterInstance, sizeof(publicMonsterInstance), 
             "( of QEdict (pointer %llu) (health %d) (gib-health %d) (max-health %d))",
             ent, ent->health, ent->gib_health, ent->health);
       Com_sprintf(privateMonsterInstance, sizeof(privateMonsterInstance), 
             "(self of QEdict (pointer %llu) (health %d) (gib-health %d) (max-health %d))",
             ent, ent->health, ent->gib_health, ent->health);
+            */
       EnvMakeInstance(ent->privateEnv, privateMonsterInstance);
       EnvMakeInstance(ent->publicEnv, publicMonsterInstance);
    } else {
-      //don't do anything right now 
+      /* don't do anything right now as the edict isn't being used for a 
+       * monster 
+       */
    }
 }
 
 void TryDeleteEnvironment(edict_t *ent) {
    if(ent->privateEnv) {
+      /* If I had more knowledge of if this edict was going to be reused for
+       * something that was a monster then I could act appropriately. 
+       *
+       * Unfortunately, at this point I have to take a safe approach until I
+       * can figure out a safe way to determine if the edict is being reused or
+       * not.
+       *
+       * Because if it is being reused for a monster then I can either call
+       * EnvReset or just delete the self pointer. 
+       */
       char fact[1024];
       Com_sprintf(fact, sizeof(fact), 
             "({ env: quake2 action: delete type: object env-ptr: %llu self-ptr: %llu duration: -1 })",

@@ -1326,6 +1326,10 @@ ClientCommand(edict_t *ent)
       Cmd_Ex_Batch_f(ent);
    } else if(Q_stricmp(cmd, "ex_run") == 0) {
       Cmd_Ex_Run_f(ent);
+   } else if(Q_stricmp(cmd, "ex_facts") == 0) {
+      Cmd_Ex_Facts_f(ent);
+   } else if(Q_stricmp(cmd, "ex_instances") == 0) {
+      Cmd_Ex_Instances_f(ent);
    } else /* anything that doesn't match a command will be a chat */
    {
       Cmd_Say_f(ent, false, true);

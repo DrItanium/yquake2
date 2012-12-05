@@ -26,6 +26,7 @@
 
 #include "../../header/local.h"
 #include "berserker.h"
+#include "../../clips/clips.h"
 
 static int sound_pain;
 static int sound_die;
@@ -580,4 +581,6 @@ SP_monster_berserk(edict_t *self)
 	gi.linkentity(self);
 
 	walkmonster_start(self);
+  SetupEnvironment(self);
+  CreateExpertSystemRepresentation(self, true);
 }

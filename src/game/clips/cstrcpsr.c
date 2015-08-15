@@ -114,7 +114,7 @@ globle int EnvLoad(
 
    SetFastLoad(theEnv,theFile);
    
-   oldParsingFileName = CopyString(theEnv,EnvGetParsingFileName(theEnv));
+   oldParsingFileName = Clips_CopyString(theEnv,EnvGetParsingFileName(theEnv));
    EnvSetParsingFileName(theEnv,fileName);
    
    noErrorsDetected = LoadConstructsFromLogicalName(theEnv,(char *) theFile);

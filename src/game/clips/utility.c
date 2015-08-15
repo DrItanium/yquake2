@@ -28,7 +28,7 @@
 /*                                                           */
 /*            Changed garbage collection algorithm.          */
 /*                                                           */
-/*            Added CopyString, DeleteString,                */
+/*            Added Clips_CopyString, DeleteString,                */
 /*            InsertInString,and EnlargeString functions.    */
 /*                                                           */
 /*            Used genstrncpy function instead of strncpy    */
@@ -453,9 +453,9 @@ globle const char *StringPrintForm(
   }
 
 /**************************************************************/
-/* CopyString: Copies a string using CLIPS memory management. */
+/* Clips_CopyString: Copies a string using CLIPS memory management. */
 /**************************************************************/
-globle char *CopyString(
+globle char *Clips_CopyString(
   void *theEnv,
   const char *theString)
   {

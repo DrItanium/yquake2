@@ -132,7 +132,7 @@ struct utilityData
    LOCALE intBool                        AddPeriodicFunction(const char *,void (*)(void),int);
    LOCALE intBool                        RemoveCleanupFunction(void *,const char *);
    LOCALE intBool                        EnvRemovePeriodicFunction(void *,const char *);
-   LOCALE char                          *CopyString(void *,const char *);
+   LOCALE char                          *Clips_CopyString(void *,const char *);
    LOCALE void                           DeleteString(void *,char *);
    LOCALE const char                    *AppendStrings(void *,const char *,const char *);
    LOCALE const char                    *StringPrintForm(void *,const char *);

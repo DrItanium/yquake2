@@ -788,7 +788,7 @@ globle int OpenBatch(
    /*========================================================================*/
    
    if (FileCommandData(theEnv)->TopOfBatchList == NULL)
-     { FileCommandData(theEnv)->batchPriorParsingFile = CopyString(theEnv,EnvGetParsingFileName(theEnv)); }
+     { FileCommandData(theEnv)->batchPriorParsingFile = Clips_CopyString(theEnv,EnvGetParsingFileName(theEnv)); }
      
    /*=======================================================*/
    /* Create the error capture router if it does not exist. */
@@ -866,7 +866,7 @@ static void AddBatch(
    bptr->batchType = type;
    bptr->inputSource = theSource;
    bptr->theString = theString;
-   bptr->fileName = CopyString(theEnv,theFileName);
+   bptr->fileName = Clips_CopyString(theEnv,theFileName);
    bptr->lineNumber = 0;
    bptr->next = NULL;
 
@@ -1087,7 +1087,7 @@ globle int EnvBatchStar(
    /*======================================*/
 
 #if (! RUN_TIME) && (! BLOAD_ONLY)
-   oldParsingFileName = CopyString(theEnv,EnvGetParsingFileName(theEnv));
+   oldParsingFileName = Clips_CopyString(theEnv,EnvGetParsingFileName(theEnv));
    EnvSetParsingFileName(theEnv,fileName);
 
    CreateErrorCaptureRouter(theEnv);

@@ -28,6 +28,7 @@
 #define GAME_LOCAL_H
 
 #include "../../common/header/shared.h"
+#include "clips/clips.h"
 
 /* define GAME_INCLUDE so that game.h does not define the
    short, server-visible gclient_t and edict_t structures,
@@ -1070,4 +1071,6 @@ struct edict_s
 	monsterinfo_t monsterinfo;
 };
 
+// Expert system environment (well the primary one at least :D)
+void* clipsEnv;
 #endif /* GAME_LOCAL_H */

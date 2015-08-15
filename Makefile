@@ -518,7 +518,176 @@ release/baseq2/game.so : LDFLAGS += -shared
 endif
 
 # ----------
-
+# CLIPS extensions
+CLIPS_OBJS_ = \
+			  src/common/clips/agenda.o \
+			  src/common/clips/analysis.o \
+			  src/common/clips/arch.o \
+			  src/common/clips/argacces.o \
+			  src/common/clips/binops.o \
+			  src/common/clips/bload.o \
+			  src/common/clips/bmathfun.o \
+			  src/common/clips/bsave.o \
+			  src/common/clips/classcom.o \
+			  src/common/clips/classexm.o \
+			  src/common/clips/classfun.o \
+			  src/common/clips/classinf.o \
+			  src/common/clips/classini.o \
+			  src/common/clips/classpsr.o \
+			  src/common/clips/clsltpsr.o \
+			  src/common/clips/commline.o \
+			  src/common/clips/conscomp.o \
+			  src/common/clips/constrct.o \
+			  src/common/clips/constrnt.o \
+			  src/common/clips/crstrtgy.o \
+			  src/common/clips/cstrcbin.o \
+			  src/common/clips/cstrccom.o \
+			  src/common/clips/cstrcpsr.o \
+			  src/common/clips/cstrnbin.o \
+			  src/common/clips/cstrnchk.o \
+			  src/common/clips/cstrncmp.o \
+			  src/common/clips/cstrnops.o \
+			  src/common/clips/cstrnpsr.o \
+			  src/common/clips/cstrnutl.o \
+			  src/common/clips/default.o \
+			  src/common/clips/defins.o \
+			  src/common/clips/developr.o \
+			  src/common/clips/dffctbin.o \
+			  src/common/clips/dffctbsc.o \
+			  src/common/clips/dffctcmp.o \
+			  src/common/clips/dffctdef.o \
+			  src/common/clips/dffctpsr.o \
+			  src/common/clips/dffnxbin.o \
+			  src/common/clips/dffnxcmp.o \
+			  src/common/clips/dffnxexe.o \
+			  src/common/clips/dffnxfun.o \
+			  src/common/clips/dffnxpsr.o \
+			  src/common/clips/dfinsbin.o \
+			  src/common/clips/dfinscmp.o \
+			  src/common/clips/drive.o \
+			  src/common/clips/emathfun.o \
+			  src/common/clips/engine.o \
+			  src/common/clips/envrnmnt.o \
+			  src/common/clips/evaluatn.o \
+			  src/common/clips/expressn.o \
+			  src/common/clips/exprnbin.o \
+			  src/common/clips/exprnops.o \
+			  src/common/clips/exprnpsr.o \
+			  src/common/clips/extnfunc.o \
+			  src/common/clips/factbin.o \
+			  src/common/clips/factbld.o \
+			  src/common/clips/factcmp.o \
+			  src/common/clips/factcom.o \
+			  src/common/clips/factfun.o \
+			  src/common/clips/factgen.o \
+			  src/common/clips/facthsh.o \
+			  src/common/clips/factlhs.o \
+			  src/common/clips/factmch.o \
+			  src/common/clips/factmngr.o \
+			  src/common/clips/factprt.o \
+			  src/common/clips/factqpsr.o \
+			  src/common/clips/factqury.o \
+			  src/common/clips/factrete.o \
+			  src/common/clips/factrhs.o \
+			  src/common/clips/filecom.o \
+			  src/common/clips/filertr.o \
+			  src/common/clips/fsoverride.o \
+			  src/common/clips/generate.o \
+			  src/common/clips/genrcbin.o \
+			  src/common/clips/genrccmp.o \
+			  src/common/clips/genrccom.o \
+			  src/common/clips/genrcexe.o \
+			  src/common/clips/genrcfun.o \
+			  src/common/clips/genrcpsr.o \
+			  src/common/clips/globlbin.o \
+			  src/common/clips/globlbsc.o \
+			  src/common/clips/globlcmp.o \
+			  src/common/clips/globlcom.o \
+			  src/common/clips/globldef.o \
+			  src/common/clips/globlpsr.o \
+			  src/common/clips/immthpsr.o \
+			  src/common/clips/incrrset.o \
+			  src/common/clips/inherpsr.o \
+			  src/common/clips/init.o \
+			  src/common/clips/inscom.o \
+			  src/common/clips/insfile.o \
+			  src/common/clips/insfun.o \
+			  src/common/clips/insmngr.o \
+			  src/common/clips/insmoddp.o \
+			  src/common/clips/insmult.o \
+			  src/common/clips/inspsr.o \
+			  src/common/clips/insquery.o \
+			  src/common/clips/insqypsr.o \
+			  src/common/clips/iofun.o \
+			  src/common/clips/lgcldpnd.o \
+			  src/common/clips/memalloc.o \
+			  src/common/clips/miscfun.o \
+			  src/common/clips/modulbin.o \
+			  src/common/clips/modulbsc.o \
+			  src/common/clips/modulcmp.o \
+			  src/common/clips/moduldef.o \
+			  src/common/clips/modulpsr.o \
+			  src/common/clips/modulutl.o \
+			  src/common/clips/msgcom.o \
+			  src/common/clips/msgfun.o \
+			  src/common/clips/msgpass.o \
+			  src/common/clips/msgpsr.o \
+			  src/common/clips/multifld.o \
+			  src/common/clips/multifun.o \
+			  src/common/clips/objbin.o \
+			  src/common/clips/objcmp.o \
+			  src/common/clips/objrtbin.o \
+			  src/common/clips/objrtbld.o \
+			  src/common/clips/objrtcmp.o \
+			  src/common/clips/objrtfnx.o \
+			  src/common/clips/objrtgen.o \
+			  src/common/clips/objrtmch.o \
+			  src/common/clips/parsefun.o \
+			  src/common/clips/parsing.o \
+			  src/common/clips/pattern.o \
+			  src/common/clips/pprint.o \
+			  src/common/clips/prccode.o \
+			  src/common/clips/prcdrfun.o \
+			  src/common/clips/prcdrpsr.o \
+			  src/common/clips/prdctfun.o \
+			  src/common/clips/prntutil.o \
+			  src/common/clips/proflfun.o \
+			  src/common/clips/reorder.o \
+			  src/common/clips/reteutil.o \
+			  src/common/clips/retract.o \
+			  src/common/clips/router.o \
+			  src/common/clips/rulebin.o \
+			  src/common/clips/rulebld.o \
+			  src/common/clips/rulebsc.o \
+			  src/common/clips/rulecmp.o \
+			  src/common/clips/rulecom.o \
+			  src/common/clips/rulecstr.o \
+			  src/common/clips/ruledef.o \
+			  src/common/clips/ruledlt.o \
+			  src/common/clips/rulelhs.o \
+			  src/common/clips/rulepsr.o \
+			  src/common/clips/scanner.o \
+			  src/common/clips/sortfun.o \
+			  src/common/clips/strngfun.o \
+			  src/common/clips/strngrtr.o \
+			  src/common/clips/symblbin.o \
+			  src/common/clips/symblcmp.o \
+			  src/common/clips/symbol.o \
+			  src/common/clips/sysdep.o \
+			  src/common/clips/textpro.o \
+			  src/common/clips/tmpltbin.o \
+			  src/common/clips/tmpltbsc.o \
+			  src/common/clips/tmpltcmp.o \
+			  src/common/clips/tmpltdef.o \
+			  src/common/clips/tmpltfun.o \
+			  src/common/clips/tmpltlhs.o \
+			  src/common/clips/tmpltpsr.o \
+			  src/common/clips/tmpltrhs.o \
+			  src/common/clips/tmpltutl.o \
+			  src/common/clips/userdata.o \
+			  src/common/clips/userfunctions.o \
+			  src/common/clips/utility.o \
+			  src/common/clips/watch.o 
 # Used by the game
 GAME_OBJS_ = \
 	src/common/shared/flash.o \
@@ -568,7 +737,8 @@ GAME_OBJS_ = \
 	src/game/player/trail.o \
 	src/game/player/view.o \
 	src/game/player/weapon.o \
-	src/game/savegame/savegame.o
+	src/game/savegame/savegame.o \
+	${CLIPS_OBJS_}
 
 # ----------
 
@@ -700,7 +870,8 @@ SERVER_OBJS_ := \
 	src/server/sv_send.o \
 	src/server/sv_user.o \
 	src/server/sv_world.o \
-	src/backends/generic/misc.o
+	src/backends/generic/misc.o \
+	${CLIPS_OBJS_}
 
 ifeq ($(OSTYPE), Windows)
 SERVER_OBJS_ += \

@@ -25,7 +25,8 @@
  */
 
 #include "header/local.h"
-
+#include "clips/clips.h"
+void* clipsEnv;
 game_locals_t game;
 level_locals_t level;
 game_import_t gi;
@@ -96,12 +97,11 @@ void InitGame(void);
 void G_RunFrame(void);
 
 /* =================================================================== */
-
 void
 ShutdownGame(void)
 {
 	gi.dprintf("==== ShutdownGame ====\n");
-
+	DestroyEnvironment(clipsEnv);
 	gi.FreeTags(TAG_LEVEL);
 	gi.FreeTags(TAG_GAME);
 }

@@ -65,6 +65,7 @@
  */
 
 #include "../header/local.h"
+#include "../clips/clips.h"
 
 /*
  * When ever the savegame version
@@ -264,6 +265,10 @@ InitGame(void)
 	game.maxclients = maxclients->value;
 	game.clients = gi.TagMalloc(game.maxclients * sizeof(game.clients[0]), TAG_GAME);
 	globals.num_edicts = game.maxclients + 1;
+
+	/* setup the clips environment */
+	clipsEnv = CreateEnvironment();
+	EnvPrintRouter(clipsEnv, "quake", "Constructed new environment!\n");
 }
 
 /* ========================================================= */

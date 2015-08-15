@@ -23,14 +23,9 @@
 
 #if QUAKE_EXTENSIONS
 #include "../header/local.h"
-game_locals_t game;
-level_locals_t level;
-game_import_t gi;
-game_export_t globals;
-spawn_temp_t st;
-static int FindQuake(void *,char *);
+static int FindQuake(void *,const char *);
 static int ExitQuake(void *,int);
-static int PrintQuake(void *,char *,char *);
+static int PrintQuake(void *,const char *, const char *);
 
 extern void QuakeExtensionFunctions(void* theEnv) {
    EnvAddRouter(theEnv, "quake", 40, FindQuake, PrintQuake,
@@ -40,7 +35,7 @@ extern void QuakeExtensionFunctions(void* theEnv) {
    gi.dprintf("Created IO Router for Quake Console\n");
 }
 
-static int FindQuake(void *theEnv, char* logicalName) {
+static int FindQuake(void *theEnv, const char* logicalName) {
 
    if ( (strcmp(logicalName,"stdout") == 0) ||
          (strcmp(logicalName, "quake") == 0) ||
@@ -50,7 +45,7 @@ static int FindQuake(void *theEnv, char* logicalName) {
    return(FALSE);
 }
 
-static int PrintQuake(void *theEnv, char* logicalName, char* str) {
+static int PrintQuake(void *theEnv, const char* logicalName, const char* str) {
    gi.dprintf("%s", str);  
    if((strcmp(logicalName,"quake") != 0)) {
       EnvDeactivateRouter(theEnv,"quake");

@@ -28,7 +28,6 @@
 #define GAME_LOCAL_H
 
 #include "../../common/header/shared.h"
-#include "../clips/clips.h"
 
 /* define GAME_INCLUDE so that game.h does not define the
    short, server-visible gclient_t and edict_t structures,
@@ -37,7 +36,7 @@
 #include "game.h"
 
 /* the "gameversion" client command will print this plus compile date */
-#define GAMEVERSION "baseq2"
+#define GAMEVERSION "rhizome"
 
 /* protocol bytes that can be directly added to messages */
 #define svc_muzzleflash 1
@@ -1072,5 +1071,5 @@ struct edict_s
 };
 
 // Expert system environment (well the primary one at least :D)
-void* clipsEnv;
+extern void* clipsEnv;
 #endif /* GAME_LOCAL_H */

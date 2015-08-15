@@ -94,14 +94,23 @@ void ReadGame(char *filename);
 void WriteLevel(char *filename);
 void ReadLevel(char *filename);
 void InitGame(void);
+void InitGameCustom(void);
 void G_RunFrame(void);
 
 /* =================================================================== */
+void
+InitGameCustom(void)
+{
+	InitGame();
+	/* setup the clips environment */
+	clipsEnv = CreateEnvironment();
+}
 void
 ShutdownGame(void)
 {
 	gi.dprintf("==== ShutdownGame ====\n");
 	DestroyEnvironment(clipsEnv);
+	gi.dprintf("==== Shutdown CLIPS ====\n");
 	gi.FreeTags(TAG_LEVEL);
 	gi.FreeTags(TAG_GAME);
 }
@@ -117,7 +126,7 @@ GetGameAPI(game_import_t *import)
 	gi = *import;
 
 	globals.apiversion = GAME_API_VERSION;
-	globals.Init = InitGame;
+	globals.Init = InitGameCustom;
 	globals.Shutdown = ShutdownGame;
 	globals.SpawnEntities = SpawnEntities;
 

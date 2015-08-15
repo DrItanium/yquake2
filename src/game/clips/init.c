@@ -42,6 +42,10 @@ void MayaDefinitions(void* theEnv) {
 #if PARSING_EXTENSIONS
    ParsingExtensionsFunctions(theEnv);
 #endif /* PARSING_EXTENSIONS */
+
+#if QUAKE_EXTENSIONS
+   QuakeExtensionFunctions(theEnv);
+#endif /* QUAKE_EXTENSIONS */
 }
 
 void MayaOptions(void* theEnv) {
@@ -70,5 +74,11 @@ EnvPrintRouter(theEnv, WDISPLAY, "CLIPS Parsing Extensions are ");
 #else
   EnvPrintRouter(theEnv,WDISPLAY,"OFF\n");
 #endif 
+EnvPrintRouter(theEnv, WDISPLAY, "YQuake2 Interface is ");
+#if QUAKE_EXTENSIONS
+EnvPrintRouter(theEnv, WDISPLAY, "ON\n");
+#else
+EnvPrintRouter(theEnv, WDISPLAY, "OFF\n");
+#endif
 #endif /* MAYA_EXTENSIONS */
 }

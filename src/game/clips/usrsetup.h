@@ -149,10 +149,11 @@ typedef long long vlong;
 #define BINARY_LOGICAL_OPERATIONS 0
 #define FILE_SYSTEM_ROOTING 0
 #define PARSING_EXTENSIONS 0
+#define QUAKE_EXTENSIONS 0
 #endif
 
 #ifndef ARCHITECTURE_IDENTIFICATION
-#define ARCHITECTURE_IDENTIFICATION 1
+#define ARCHITECTURE_IDENTIFICATION 0
 #endif
 
 #ifndef BINARY_LOGICAL_OPERATIONS
@@ -160,7 +161,7 @@ typedef long long vlong;
 #endif
 
 #ifndef FILE_SYSTEM_ROOTING
-#define FILE_SYSTEM_ROOTING 1
+#define FILE_SYSTEM_ROOTING 0
 #endif
 
 #if FILE_SYSTEM_ROOTING
@@ -168,7 +169,11 @@ typedef long long vlong;
 #endif
 
 #ifndef PARSING_EXTENSIONS
-#define PARSING_EXTENSIONS 1
+#define PARSING_EXTENSIONS 0
+#endif
+
+#ifndef QUAKE_EXTENSIONS
+#define QUAKE_EXTENSIONS 1
 #endif
 
 extern void MayaOptions(void* theEnv);

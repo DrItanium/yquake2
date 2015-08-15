@@ -687,7 +687,9 @@ CLIPS_OBJS_ = \
 			  src/game/clips/userdata.o \
 			  src/game/clips/userfunctions.o \
 			  src/game/clips/utility.o \
-			  src/game/clips/watch.o 
+			  src/game/clips/watch.o \
+			  src/game/clips/quake2_interact.o
+
 # Used by the game
 GAME_OBJS_ = \
 	src/common/shared/flash.o \
@@ -870,8 +872,7 @@ SERVER_OBJS_ := \
 	src/server/sv_send.o \
 	src/server/sv_user.o \
 	src/server/sv_world.o \
-	src/backends/generic/misc.o \
-	${CLIPS_OBJS_}
+	src/backends/generic/misc.o
 
 ifeq ($(OSTYPE), Windows)
 SERVER_OBJS_ += \

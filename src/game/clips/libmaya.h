@@ -173,4 +173,7 @@ extern void ArchitectureDetectionFunctionDefinitions(void* theEnv);
 #if PARSING_EXTENSIONS
 extern void ParsingExtensionsFunctions(void* theEnv);
 #endif // PARSING_EXTENSIONS
+#if QUAKE_EXTENSIONS
+extern void QuakeExtensionFunctions(void* theEnv);
+#endif // QUAKE_EXTENSIONS
 #endif

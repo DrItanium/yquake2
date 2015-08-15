@@ -26,19 +26,19 @@
 static int FindQuake(void *,const char *);
 static int ExitQuake(void *,int);
 static int PrintQuake(void *,const char *, const char *);
-
+#define QUAKE_CONSOLE "quake"
 extern void QuakeExtensionFunctions(void* theEnv) {
-   EnvAddRouter(theEnv, "quake", 40, FindQuake, PrintQuake,
+   EnvAddRouter(theEnv, QUAKE_CONSOLE, 40, FindQuake, PrintQuake,
          NULL, 
 		 NULL, //doesn't handle input
          ExitQuake);
-   gi.dprintf("Created IO Router for Quake Console\n");
+   gi.dprintf("Created IO Routers for Quake Console\n");
 }
 
 static int FindQuake(void *theEnv, const char* logicalName) {
 
    if ( (strcmp(logicalName,"stdout") == 0) ||
-         (strcmp(logicalName, "quake") == 0) ||
+         (strcmp(logicalName, QUAKE_CONSOLE) == 0) ||
          (strcmp(logicalName, WDISPLAY) == 0) ||
          (strcmp(logicalName,WERROR) == 0))
    { return(TRUE); }
@@ -47,10 +47,10 @@ static int FindQuake(void *theEnv, const char* logicalName) {
 
 static int PrintQuake(void *theEnv, const char* logicalName, const char* str) {
    gi.dprintf("%s", str);  
-   if((strcmp(logicalName,"quake") != 0)) {
-      EnvDeactivateRouter(theEnv,"quake");
+   if((strcmp(logicalName,QUAKE_CONSOLE) != 0)) {
+      EnvDeactivateRouter(theEnv,QUAKE_CONSOLE);
       EnvPrintRouter(theEnv,logicalName,str);
-      EnvActivateRouter(theEnv, "quake");
+      EnvActivateRouter(theEnv, QUAKE_CONSOLE);
    }
    return (1);
 }

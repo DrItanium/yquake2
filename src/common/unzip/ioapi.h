@@ -130,6 +130,15 @@ extern "C" {
 #endif
 
 
+// some versions of zlib do not define OF but _Z_OF
+// If it does then "patch" it.
+#ifndef OF
+#ifdef _Z_OF
+#define OF(args) _Z_OF(args)
+#else
+#error "OF nor _Z_OF are defined, please figure out the correct symbol for ioapi to work!"
+#endif
+#endif
 
 
 typedef voidpf   (ZCALLBACK *open_file_func)      OF((voidpf opaque, const char* filename, int mode));
